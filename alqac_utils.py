@@ -106,6 +106,7 @@ def f2_metric(eval_sets, pipeline: Pipeline, retrival_method: str, retriever_top
 
     """
     Precisions, Recalls, F2s = [], [], []
+    iter = 0
     for question in eval_sets:
         if not (question["text"] and question["relevant_articles"]):
             continue
@@ -138,6 +139,7 @@ def f2_metric(eval_sets, pipeline: Pipeline, retrival_method: str, retriever_top
         if not len(retrieved_docs):
             continue
         
+        iter +=1
         # build set of retrieved relevant articles
         retrieved_articles = set()
         for doc in retrieved_docs:
@@ -152,8 +154,8 @@ def f2_metric(eval_sets, pipeline: Pipeline, retrival_method: str, retriever_top
         Precision_i = len(relevant_articles.intersection(retrieved_articles))/len(retrieved_articles)
         Recall_i = len(relevant_articles.intersection(retrieved_articles))/len(relevant_articles)
         
-        logger.warn(f'precision_i: {Precision_i}')
-        logger.warn(f'Recall_i {Recall_i}')
+        logger.warn(f'iter: {iter}, precision_i: {Precision_i}')
+        logger.warn(f'iter: {iter}, Recall_i {Recall_i}')
 
         if Precision_i == 0 or Recall_i == 0:
             F2_i = 0
@@ -161,7 +163,7 @@ def f2_metric(eval_sets, pipeline: Pipeline, retrival_method: str, retriever_top
             # calculate F2_i
             F2_i = ( 5 * Precision_i * Recall_i ) / ( 4 * Precision_i + Recall_i )        
         
-        logger.warn(f'F2_i: {F2_i}')
+        logger.warn(f'iter: {iter}, F2_i: {F2_i}')
 
         Precisions.append(Precision_i)
         Recalls.append(Recall_i)
@@ -180,6 +182,7 @@ def evaluate_pipeline(eval_sets, pipeline: Pipeline, retrival_method: str, retri
 
     """
     coverages = []
+    iter = 0
     for question in eval_sets:
         if not (question["text"] and question["relevant_articles"]):
             continue
@@ -212,6 +215,7 @@ def evaluate_pipeline(eval_sets, pipeline: Pipeline, retrival_method: str, retri
         if not len(retrieved_docs):
             continue
         
+        iter +=1
         # build set of retrieved relevant articles
         retrieved_articles = set()
         for doc in retrieved_docs:
@@ -225,7 +229,7 @@ def evaluate_pipeline(eval_sets, pipeline: Pipeline, retrival_method: str, retri
 
         coverage_i = len(relevant_articles.intersection(retrieved_articles))/len(relevant_articles)
         
-        logger.warn(f'coverage_i: {coverage_i}')
+        logger.warn(f'iter: {iter}, coverage_i: {coverage_i}')
 
         coverages.append(coverage_i)
     

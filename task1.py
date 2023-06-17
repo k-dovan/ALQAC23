@@ -63,14 +63,16 @@ def build_retriever_pipe(retriever, retrival_method: str, ranker_model_name: str
 if __name__ == "__main__":
 
     # 1. prepare corpus and eval sets
-    corpus_paths = [f'{DATASET_DIR}/law.json',
-                    #   f'{DATASET_DIR}/additional_data/ALQAC_2022_training_data/law.json',
-                    #   f'{DATASET_DIR}/additional_data/zalo/zalo_corpus.json'
-                    ]
-    eval_paths = [f'{DATASET_DIR}/train.json',
-                  #   f'{DATASET_DIR}/additional_data/ALQAC_2022_training_data/question.json',
-                  #   f'{DATASET_DIR}/additional_data/zalo/zalo_question.json'
-                  ]
+    corpus_paths = [
+        f'{DATASET_DIR}/law.json',
+        # f'{DATASET_DIR}/additional_data/ALQAC_2022_training_data/law.json',
+        # f'{DATASET_DIR}/additional_data/zalo/zalo_corpus.json'
+    ]
+    eval_paths = [
+        f'{DATASET_DIR}/train.json',
+        # f'{DATASET_DIR}/additional_data/ALQAC_2022_training_data/question.json',
+        # f'{DATASET_DIR}/additional_data/zalo/zalo_question.json'
+    ]
 
     # load corpus datasets
     document_store = prepare_in_memory_dataset(file_paths=corpus_paths)
@@ -90,15 +92,16 @@ if __name__ == "__main__":
     pipeline = build_retriever_pipe(retriever=retriever, 
                                     retrival_method=retrieval_method.name)
 
-    retriever_top_k = 20
+    retriever_top_k = 5
     # evaluate pipeline with own_defined `coverage` metric
     coverage = evaluate_pipeline(eval_sets=eval_sets, 
-                                              pipeline=pipeline, 
-                                              retrival_method=retrieval_method.name,
-                                              retriever_top_k=retriever_top_k
-                                              )
+                                pipeline=pipeline, 
+                                retrival_method=retrieval_method.name,
+                                retriever_top_k=retriever_top_k
+                        )
 
-    logger.info(f"Top {retriever_top_k} retrieved articles cover {100* coverage}% ground-truth relevant articles.")
+    logger.info(f"Retriever: {retrieval_method.name}")
+    logger.info(f"Top {retriever_top_k} retrieved articles cover {100* coverage:.2f}% ground-truth relevant articles.")
 
     # # evaluate pipeline with provided F2-metric
     # Precision, Recall, F2 = f2_metric(eval_sets=eval_sets, 
@@ -126,7 +129,7 @@ if __name__ == "__main__":
     #                             ranker_top_k=ranker_top_k
     #                             )
 
-    # logger.info(f"Top {retriever_top_k} Retriever, top {ranker_top_k} Ranker retrieved articles cover {100* coverage}% ground-truth relevant articles.")
+    # logger.info(f"Top {retriever_top_k} Retriever, top {ranker_top_k} Ranker retrieved articles cover {100* coverage:.2f}% ground-truth relevant articles.")
 
     # # evaluate pipeline with provided F2-metric
     # Precision, Recall, F2 = f2_metric(eval_sets=eval_sets, 
