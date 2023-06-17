@@ -37,7 +37,7 @@ class ArticleIDs():
     def __hash__(self):
         return hash(self.law_id + str(self.article_id))
     
-def build_retriever(document_store, retrieval_method: int):
+def build_retriever(document_store, retrieval_method):
     retriever = None
 
     if retrieval_method == RETRIEVAL_METHODS.TfidfRetriever:
@@ -59,20 +59,22 @@ def build_retriever(document_store, retrieval_method: int):
     return retriever
 
 
-def build_retriever_pipe(retriever, retrival_method: Enum, ranker_model_name: str = None) -> Pipeline:
+def build_retriever_pipe(retriever, retrival_method, ranker_model_name: str = None) -> Pipeline:
     retriever_pipe = Pipeline()
 
+    print (f'type of ranker_model_name: {type(ranker_model_name)}')
+
     retriever_pipe.add_node(component=retriever,
-                            name=retrival_method.name, inputs=["Query"])
-    if not ranker_model_name:
+                            name=retrival_method, inputs=["Query"])
+    if ranker_model_name is not None:
         ranker = SentenceTransformersRanker(
             model_name_or_path=ranker_model_name)
         retriever_pipe.add_node(
-            component=ranker, name="Ranker", inputs=[retrival_method.name])
+            component=ranker, name="Ranker", inputs=[retrival_method])
 
     return retriever_pipe
 
-def evaluate_pipeline(eval_sets, pipeline: Pipeline, retrival_method: Enum, retriever_top_k: int = 100, ranker_top_k: int = 1):
+def evaluate_pipeline(eval_sets, pipeline: Pipeline, retrival_method, retriever_top_k: int = 100, ranker_top_k: int = 1):
     """
     Evaluate the pipeline using `F2-metric` provided by ALQAC2023 on the `eval_sets`.
     
@@ -104,7 +106,7 @@ def evaluate_pipeline(eval_sets, pipeline: Pipeline, retrival_method: Enum, retr
 
         prediction = pipeline.run(
             query=question["text"],
-            params={retrival_method.name: {"top_k": retriever_top_k}, "Ranker": {"top_k": ranker_top_k}}
+            params={retrival_method: {"top_k": retriever_top_k}, "Ranker": {"top_k": ranker_top_k}}
         )
 
         retrieved_docs = prediction["documents"]
@@ -159,10 +161,10 @@ if __name__ == "__main__":
     retrieval_method = RETRIEVAL_METHODS.BM25Retriever
     
     # build retriever
-    retriever = build_retriever(document_store=document_store, retrieval_method=retrieval_method)
+    retriever = build_retriever(document_store=document_store, retrieval_method=retrieval_method.name)
 
     # build retriver pipeline without Ranker
-    pipeline = build_retriever_pipe(retriever=retriever, retrival_method=retrieval_method)
+    pipeline = build_retriever_pipe(retriever=retriever, retrival_method=retrieval_method.name)
 
 
 
