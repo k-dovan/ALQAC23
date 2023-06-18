@@ -5,7 +5,7 @@ from task1 import *
 if __name__ == "__main__":
 
     # 1. prepare corpus and eval sets
-    corpus_paths = [f'{DATASET_DIR}/law.json',
+    CORPUS = [f'{DATASET_DIR}/law.json',
                     #   f'{DATASET_DIR}/additional_data/ALQAC_2022_training_data/law.json',
                     #   f'{DATASET_DIR}/additional_data/zalo/zalo_corpus.json'
                     ]
@@ -15,10 +15,10 @@ if __name__ == "__main__":
                   ]
 
     # load corpus datasets
-    document_store = prepare_in_memory_dataset(file_paths=corpus_paths)
+    document_store = prepare_in_memory_dataset(file_paths=CORPUS)
 
     # load eval sets
-    eval_sets = read_eval_sets(eval_paths)
+    eval_sets = read_json_sets(eval_paths)
 
     # evaluate pipelines
     retrieval_method = RETRIEVAL_METHODS.BM25Retriever
@@ -30,7 +30,7 @@ if __name__ == "__main__":
     pipeline = build_retriever_pipe(retriever=retriever, retrival_method=retrieval_method.name)
 
     # evaluate pipeline with provided F2-metric
-    Precision, Recall, F2 = f2_metric(eval_sets=eval_sets, 
+    Precision, Recall, F2 = evaluate_pipeline(eval_sets=eval_sets, 
                                               pipeline=pipeline, 
                                               retrival_method=retrieval_method.name,
                                               retriever_top_k=1

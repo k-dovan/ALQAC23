@@ -1,5 +1,6 @@
 
 import logging
+import argparse
 from pprint import pprint
 from typing import List
 from enum import Enum
@@ -18,31 +19,42 @@ logger = init_logger('task1', logging.INFO)
 
 DATASET_DIR = "../ALQAC_2023_training_data"
 
-RETRIEVAL_METHODS = Enum('RETRIEVAL_METHODS',
-                         ['TfidfRetriever', 'BM25Retriever',
-                          'EmbeddingRetriever', 'DensePassageRetriever'
-                         ]
-                         )
+CORPUS_CHOICES = ['ALQAC2023', 'ALQAC2022', 'Zalo']
+CORPORA = {
+        CORPUS_CHOICES[0]: f'{DATASET_DIR}/law.json',
+        CORPUS_CHOICES[1]: f'{DATASET_DIR}/additional_data/ALQAC_2022_training_data/law.json',
+        CORPUS_CHOICES[2]: f'{DATASET_DIR}/additional_data/zalo/zalo_corpus.json'
+}
+EVAL_SETS = {
+    CORPUS_CHOICES[0]: f'{DATASET_DIR}/train.json',
+    CORPUS_CHOICES[1]: f'{DATASET_DIR}/additional_data/ALQAC_2022_training_data/question.json',
+    CORPUS_CHOICES[2]: f'{DATASET_DIR}/additional_data/zalo/zalo_question.json'
+}
+
+RETRIEVAL_CHOICES = ['TfidfRetriever', 'BM25Retriever']
     
 def build_retriever(document_store, retrieval_method):
     retriever = None
 
-    if retrieval_method == RETRIEVAL_METHODS.TfidfRetriever:
+    if retrieval_method == 'TfidfRetriever':
         retriever = TfidfRetriever(document_store=document_store)
-    elif retrieval_method == RETRIEVAL_METHODS.BM25Retriever:
+    elif retrieval_method == 'BM25Retriever':
         retriever = BM25Retriever(document_store=document_store)
-    elif retrieval_method == RETRIEVAL_METHODS.EmbeddingRetriever:
+    elif retrieval_method == 'EmbeddingRetriever':
         retriever = EmbeddingRetriever(
             document_store=document_store,
             embedding_model="sentence-transformers/multi-qa-mpnet-base-dot-v1",
-            model_format="sentence_transformers"
+            model_format="sentence_transformers",
+            use_gpu=True
         )
         document_store.update_embeddings(retriever)
-    elif retrieval_method == RETRIEVAL_METHODS.DensePassageRetriever:
+    elif retrieval_method == 'DensePassageRetriever':
         retriever = DensePassageRetriever(
             document_store=document_store,
             query_embedding_model="facebook/dpr-question_encoder-single-nq-base",
-            passage_embedding_model="facebook/dpr-ctx_encoder-single-nq-base")
+            passage_embedding_model="facebook/dpr-ctx_encoder-single-nq-base",
+            use_gpu=True
+            )
         document_store.update_embeddings(retriever)
     return retriever
 
@@ -60,82 +72,86 @@ def build_retriever_pipe(retriever, retrival_method: str, ranker_model_name: str
 
     return retriever_pipe
 
+def parse_arguments():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-c', '--corpus', type=str, help='Chosen corpus to work on.', choices=CORPUS_CHOICES, default=CORPUS_CHOICES[0])
+    parser.add_argument('-m', '--retrieval_method', type=str, help='Retrieval method to use.', choices=RETRIEVAL_CHOICES, default=RETRIEVAL_CHOICES[0])
+    parser.add_argument('-e', '--retriever_top_k', type=int, help='Number of retrieved documents to extract by Retriever.', default=50)
+    parser.add_argument('-a', '--ranker_top_k', type=int, help='Number of retrieved documents to extract by Ranker.', default=3)
+    parser.add_argument('-w', '--with_ranker', help='Use Ranker along with Retriever.', action='store_true')    
+    parser.add_argument('-i', '--print_metric', help='Print F2-metric result.', action='store_true')      
+    parser.add_argument('-o', '--print_coverage', help='Print coverage result.', action='store_true')      
+    parser.add_argument('-p', '--print_public_test', help='Print and write to file public test result.', action='store_true')    
+
+    return parser.parse_args()
+
 if __name__ == "__main__":
 
-    # 1. prepare corpus and eval sets
-    corpus_paths = [
-        f'{DATASET_DIR}/law.json',
-        # f'{DATASET_DIR}/additional_data/ALQAC_2022_training_data/law.json',
-        # f'{DATASET_DIR}/additional_data/zalo/zalo_corpus.json'
-    ]
-    eval_paths = [
-        f'{DATASET_DIR}/train.json',
-        # f'{DATASET_DIR}/additional_data/ALQAC_2022_training_data/question.json',
-        # f'{DATASET_DIR}/additional_data/zalo/zalo_question.json'
-    ]
+    # parse arguments from commandline
+    args = parse_arguments()
 
-    # load corpus datasets
-    document_store = prepare_in_memory_dataset(file_paths=corpus_paths)
+    corpus = args.corpus
+    retrieval_method = args.retrieval_method
+    retriever_top_k = args.retriever_top_k
+    ranker_top_k = args.ranker_top_k
+    with_ranker = args.with_ranker
+    print_metric = args.print_metric
+    print_coverage = args.print_coverage
+    print_public_test = args.print_public_test
+
+    # 1. prepare corpus and eval sets 
+    # load corpus
+    corpus_path = CORPORA[corpus]
+    document_store = prepare_in_memory_dataset(file_paths=[corpus_path])
 
     # load eval sets
-    eval_sets = read_eval_sets(eval_paths)
-
-    # evaluate pipelines
-    retrieval_method = RETRIEVAL_METHODS.TfidfRetriever
+    eval_path = EVAL_SETS[corpus]
+    eval_sets = read_json_sets([eval_path])
     
     # build retriever
     retriever = build_retriever(document_store=document_store, retrieval_method=retrieval_method)
 
-    # =================================== without ranker =========================================
-    # =========================================================================================
-    # build retriver pipeline without Ranker
-    pipeline = build_retriever_pipe(retriever=retriever, 
-                                    retrival_method=retrieval_method.name)
-
-    retriever_top_k = 5
-    # evaluate pipeline with own_defined `coverage` metric
-    coverage = evaluate_pipeline(eval_sets=eval_sets, 
-                                pipeline=pipeline, 
-                                retrival_method=retrieval_method.name,
-                                retriever_top_k=retriever_top_k
-                        )
-
-    logger.info(f"Retriever: {retrieval_method.name}")
-    logger.info(f"Top {retriever_top_k} retrieved articles cover {100* coverage:.2f}% ground-truth relevant articles.")
-
-    # # evaluate pipeline with provided F2-metric
-    # Precision, Recall, F2 = f2_metric(eval_sets=eval_sets, 
-    #                                           pipeline=pipeline, 
-    #                                           retrival_method=retrieval_method.name,
-    #                                           retriever_top_k=1
-    #                                           )
-
-    # logger.info(f"Precision: {Precision}, Recall: {Recall}, F2: {F2}")
-
-    # =================================== with ranker =========================================
-    # =========================================================================================
-    # # build retriver pipeline with Ranker
-    # pipeline = build_retriever_pipe(retriever=retriever, 
-    #                                 retrival_method=retrieval_method.name,
-    #                                 ranker_model_name="cross-encoder/ms-marco-MiniLM-L-12-v2")
+    ranker_model_name= "cross-encoder/ms-marco-MiniLM-L-12-v2" if with_ranker else None
     
-    # retriever_top_k = 100
-    # ranker_top_k = 5
-    # # evaluate pipeline with own_defined `coverage` metric
-    # coverage = evaluate_pipeline(eval_sets=eval_sets, 
-    #                             pipeline=pipeline, 
-    #                             retrival_method=retrieval_method.name,
-    #                             retriever_top_k=retriever_top_k,
-    #                             ranker_top_k=ranker_top_k
-    #                             )
+    pipeline = build_retriever_pipe(retriever=retriever, 
+                                    retrival_method=retrieval_method,
+                                    ranker_model_name=ranker_model_name
+                                    )
 
-    # logger.info(f"Top {retriever_top_k} Retriever, top {ranker_top_k} Ranker retrieved articles cover {100* coverage:.2f}% ground-truth relevant articles.")
+    if print_coverage:
+        # evaluate pipeline with own_defined `coverage` metric
+        coverage = evaluate_pipeline(eval_sets=eval_sets, 
+                                    pipeline=pipeline, 
+                                    retrival_method=retrieval_method,
+                                    retriever_top_k=retriever_top_k,
+                                    ranker_top_k=ranker_top_k,
+                                    evaluation_type='coverage'
+                            )
 
-    # # evaluate pipeline with provided F2-metric
-    # Precision, Recall, F2 = f2_metric(eval_sets=eval_sets, 
-    #                                           pipeline=pipeline, 
-    #                                           retrival_method=retrieval_method.name,
-    #                                           retriever_top_k=1
-    #                                           )
+        logger.info(f"Retriever: {retrieval_method}")
+        logger.info(f"Top {retriever_top_k} retrieved articles cover {100* coverage:.2f}% ground-truth relevant articles.")
+    
+    elif print_metric:
+        # evaluate pipeline with provided F2-metric
+        Precision, Recall, F2 = evaluate_pipeline(eval_sets=eval_sets, 
+                                                    pipeline=pipeline, 
+                                                    retrival_method=retrieval_method,
+                                                    retriever_top_k=retriever_top_k,
+                                                    ranker_top_k=ranker_top_k,
+                                                    evaluation_type='f2'
+                                                    )
 
-    # logger.info(f"Precision: {Precision}, Recall: {Recall}, F2: {F2}")
+        logger.info(f"Precision: {Precision}, Recall: {Recall}, F2: {F2}")
+    
+    elif print_public_test:
+        # read public test from json
+        public_test_set = read_json_sets([f'{DATASET_DIR}/public_test.json'])
+
+        # write the pridiction result to file for submission
+        predict_public_test(public_test_set=public_test_set, 
+                            pipeline=pipeline, 
+                            retrival_method=retrieval_method,
+                            retriever_top_k=retriever_top_k,
+                            ranker_top_k=ranker_top_k
+                        )      
+       
