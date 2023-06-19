@@ -32,6 +32,11 @@ EVAL_SETS = {
 }
 
 RETRIEVAL_CHOICES = ['TfidfRetriever', 'BM25Retriever']
+
+RANKER_MODELS = [
+    'cross-encoder/mmarco-mMiniLMv2-L12-H384-v1',       # 85% coverage
+    'sentence-transformers/multi-qa-mpnet-base-dot-v1', 
+    ]
     
 def build_retriever(document_store, retrieval_method):
     retriever = None
@@ -77,6 +82,7 @@ def parse_arguments():
     parser.add_argument('-c', '--corpus', type=str, help='Chosen corpus to work on.', choices=CORPUS_CHOICES, default=CORPUS_CHOICES[0])
     parser.add_argument('-m', '--retrieval_method', type=str, help='Retrieval method to use.', choices=RETRIEVAL_CHOICES, default=RETRIEVAL_CHOICES[0])
     parser.add_argument('-e', '--retriever_top_k', type=int, help='Number of retrieved documents to extract by Retriever.', default=50)
+    parser.add_argument('-n', '--ranker_model', type=str, help='Model name or path for the Ranker', choices=RANKER_MODELS, default=RANKER_MODELS[0])
     parser.add_argument('-a', '--ranker_top_k', type=int, help='Number of retrieved documents to extract by Ranker.', default=3)
     parser.add_argument('-w', '--with_ranker', help='Use Ranker along with Retriever.', action='store_true')    
     parser.add_argument('-i', '--print_metric', help='Print F2-metric result.', action='store_true')      
@@ -93,6 +99,7 @@ if __name__ == "__main__":
     corpus = args.corpus
     retrieval_method = args.retrieval_method
     retriever_top_k = args.retriever_top_k
+    ranker_model = args.ranker_model
     ranker_top_k = args.ranker_top_k
     with_ranker = args.with_ranker
     print_metric = args.print_metric
@@ -111,7 +118,8 @@ if __name__ == "__main__":
     # build retriever
     retriever = build_retriever(document_store=document_store, retrieval_method=retrieval_method)
 
-    ranker_model_name= "cross-encoder/ms-marco-MiniLM-L-12-v2" if with_ranker else None
+
+    ranker_model_name= ranker_model if with_ranker else None
     
     pipeline = build_retriever_pipe(retriever=retriever, 
                                     retrival_method=retrieval_method,
