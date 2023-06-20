@@ -2,7 +2,7 @@
 Sonic team's repo for QLQAC 2023
 
 
-## Run task 1:
+## Run task1.py:
 ### Retriever only
 #### BM25 Retriever
 python task1.py --corpus="ALQAC2023" --retrieval_method='BM25Retriever' --retriever_top_k=1 --print_coverage

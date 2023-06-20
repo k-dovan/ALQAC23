@@ -1,6 +1,7 @@
 import logging
 import json
 from typing import List
+import pandas as pd
 
 from haystack.document_stores import InMemoryDocumentStore
 from haystack import Pipeline
@@ -17,7 +18,7 @@ def init_logger(logger_name: str, level: int):
     return logger
 
 # init logger
-logger = init_logger('utils', logging.WARNING)
+logger = init_logger('utils', logging.DEBUG)
 
 # ============================= data utils ====================================
 # read law data from a json file to dict (with required format)
@@ -94,6 +95,7 @@ class ArticleIDs():
 
 def evaluate_pipeline(eval_sets, pipeline: Pipeline, 
                       retrival_method: str, 
+                      own_ranker: None,
                       retriever_top_k: int = 100, 
                       ranker_top_k: int = 1,
                       evaluation_type: str = 'f2' # `f2`, `coverage`, `public_test`
@@ -129,6 +131,7 @@ def evaluate_pipeline(eval_sets, pipeline: Pipeline,
                 continue
             relevant_articles.add(ArticleIDs(art["law_id"], art["article_id"]))        
         
+        logger.debug(f'question: {question["text"]}')
         logger.debug(f'relevant articles: {[str(art) for art in relevant_articles]}')
 
         if "Ranker" in pipeline._get_all_component_names():
@@ -149,12 +152,36 @@ def evaluate_pipeline(eval_sets, pipeline: Pipeline,
         iter +=1
         # build set of retrieved relevant articles
         retrieved_articles = set()
+        
+        is_own_ranker = False
+        if own_ranker:
+            retrieved_docs_df = []
+            retrieved_doc_columns = ["qid", "query", "law_id", "article_id", "text"]
+            is_own_ranker = True
+
         for doc in retrieved_docs:
             if not doc.meta:
                 continue
             if not (doc.meta["law_id"] and doc.meta["article_id"]):
                 continue
             retrieved_articles.add(ArticleIDs(doc.meta["law_id"], doc.meta["article_id"]))
+            
+            if is_own_ranker:
+                retrieved_docs_df.append([question["question_id"], question["text"], doc.meta["law_id"], doc.meta["article_id"], doc.content])
+        
+        if is_own_ranker:
+            new_retrieved_articles = []
+            # add query-relevant_doc pairs to dataframe for T5 to rank
+            ranking_dataframes = pd.DataFrame(retrieved_docs_df, columns=retrieved_doc_columns)
+            
+            # rank the relevant docs and pick top_k highest relevance docs
+            df_top_ranked_docs = own_ranker(ranking_dataframes, ranker_top_k=ranker_top_k)
+
+            # build retrieved articles for evaluation
+            for _, row in df_top_ranked_docs.iterrows():
+                new_retrieved_articles.append(ArticleIDs(row["law_id"], row["article_id"]))
+            # reassign to retrieved_articles
+            retrieved_articles = new_retrieved_articles
         
         logger.debug(f'retrieved articles: {[str(art) for art in retrieved_articles]}')
 
@@ -195,7 +222,12 @@ def evaluate_pipeline(eval_sets, pipeline: Pipeline,
 
         return coverage
 
-def predict_public_test(public_test_set, pipeline: Pipeline, retrival_method: str, retriever_top_k: int = 100, ranker_top_k: int = 1):
+def predict_public_test(public_test_set, 
+                        pipeline: Pipeline, 
+                        retrival_method: str,  
+                        own_ranker: None,
+                        retriever_top_k: int = 100, 
+                        ranker_top_k: int = 1):
     """
     Print/write to file public test result for submission.
     """

@@ -13,9 +13,12 @@ from haystack.utils import print_answers
 from haystack.document_stores import InMemoryDocumentStore
 from haystack.schema import Document
 
+import pandas as pd
+import pyterrier as pt
+from pyterrier_t5 import MonoT5ReRanker
 from alqac_utils import *
 
-logger = init_logger('task1', logging.INFO)
+logger = init_logger('task1_T5', logging.INFO)
 
 DATASET_DIR = "../ALQAC_2023_training_data"
 
@@ -62,17 +65,18 @@ def build_retriever(document_store, retrieval_method):
         document_store.update_embeddings(retriever)
     return retriever
 
+def ranker_T5(ranking_dataframes: pd.DataFrame, ranker_top_k: int = 1):
+    df_with_rank = monoT5.transform(ranking_dataframes)
 
-def build_retriever_pipe(retriever, retrival_method: str, ranker_model_name: str = None) -> Pipeline:
+    # return the top_k highest relevance docs
+    return df_with_rank.sort_values('rank', ascending=True).head(ranker_top_k)
+
+
+def build_retriever_pipe(retriever, retrival_method: str) -> Pipeline:
     retriever_pipe = Pipeline()
 
     retriever_pipe.add_node(component=retriever,
                             name=retrival_method, inputs=["Query"])
-    if ranker_model_name is not None:
-        ranker = SentenceTransformersRanker(
-            model_name_or_path=ranker_model_name)
-        retriever_pipe.add_node(
-            component=ranker, name="Ranker", inputs=[retrival_method])
 
     return retriever_pipe
 
@@ -82,8 +86,7 @@ def parse_arguments():
     parser.add_argument('-m', '--retrieval_method', type=str, help='Retrieval method to use.', choices=RETRIEVAL_CHOICES, default=RETRIEVAL_CHOICES[0])
     parser.add_argument('-e', '--retriever_top_k', type=int, help='Number of retrieved documents to extract by Retriever.', default=50)
     parser.add_argument('-n', '--ranker_model', type=str, help='Model name or path for the Ranker', choices=RANKER_MODELS, default=RANKER_MODELS[0])
-    parser.add_argument('-a', '--ranker_top_k', type=int, help='Number of retrieved documents to extract by Ranker.', default=3)
-    parser.add_argument('-w', '--with_ranker', help='Use Ranker along with Retriever.', action='store_true')    
+    parser.add_argument('-a', '--ranker_top_k', type=int, help='Number of retrieved documents to extract by Ranker.', default=3)  
     parser.add_argument('-i', '--print_metric', help='Print F2-metric result.', action='store_true')      
     parser.add_argument('-o', '--print_coverage', help='Print coverage result.', action='store_true')      
     parser.add_argument('-p', '--print_public_test', help='Print and write to file public test result.', action='store_true')    
@@ -91,6 +94,9 @@ def parse_arguments():
     return parser.parse_args()
 
 if __name__ == "__main__":
+    
+    pt.init()
+    monoT5 = MonoT5ReRanker()
 
     # parse arguments from commandline
     args = parse_arguments()
@@ -100,7 +106,6 @@ if __name__ == "__main__":
     retriever_top_k = args.retriever_top_k
     ranker_model = args.ranker_model
     ranker_top_k = args.ranker_top_k
-    with_ranker = args.with_ranker
     print_metric = args.print_metric
     print_coverage = args.print_coverage
     print_public_test = args.print_public_test
@@ -116,20 +121,17 @@ if __name__ == "__main__":
     
     # build retriever
     retriever = build_retriever(document_store=document_store, retrieval_method=retrieval_method)
-
-
-    ranker_model_name= ranker_model if with_ranker else None
     
-    pipeline = build_retriever_pipe(retriever=retriever, 
-                                    retrival_method=retrieval_method,
-                                    ranker_model_name=ranker_model_name
+    retriever_pipe = build_retriever_pipe(retriever=retriever, 
+                                    retrival_method=retrieval_method
                                     )
 
     if print_coverage:
         # evaluate pipeline with own_defined `coverage` metric
         coverage = evaluate_pipeline(eval_sets=eval_sets, 
-                                    pipeline=pipeline, 
+                                    pipeline=retriever_pipe, 
                                     retrival_method=retrieval_method,
+                                    own_ranker=ranker_T5,
                                     retriever_top_k=retriever_top_k,
                                     ranker_top_k=ranker_top_k,
                                     evaluation_type='coverage'
@@ -141,8 +143,9 @@ if __name__ == "__main__":
     elif print_metric:
         # evaluate pipeline with provided F2-metric
         Precision, Recall, F2 = evaluate_pipeline(eval_sets=eval_sets, 
-                                                    pipeline=pipeline, 
+                                                    pipeline=retriever_pipe, 
                                                     retrival_method=retrieval_method,
+                                                    own_ranker=ranker_T5,
                                                     retriever_top_k=retriever_top_k,
                                                     ranker_top_k=ranker_top_k,
                                                     evaluation_type='f2'
@@ -156,8 +159,9 @@ if __name__ == "__main__":
 
         # write the pridiction result to file for submission
         predict_public_test(public_test_set=public_test_set, 
-                            pipeline=pipeline, 
+                            pipeline=retriever_pipe, 
                             retrival_method=retrieval_method,
+                            own_ranker=ranker_T5,
                             retriever_top_k=retriever_top_k,
                             ranker_top_k=ranker_top_k
                         )      
