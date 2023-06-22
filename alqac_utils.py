@@ -1,5 +1,6 @@
 import logging
 import json
+from tqdm import tqdm
 from typing import List
 
 from haystack.document_stores import InMemoryDocumentStore
@@ -30,7 +31,7 @@ def read_corpus(file_path: str) -> List[dict]:
         data = json.load(f)
         if not isinstance(data, list):
             return res
-        for law in data:
+        for law in tqdm(data):
             if not (law["id"] and law["articles"]):
                 continue
             if not isinstance(law["articles"], list):
@@ -67,7 +68,7 @@ def prepare_in_memory_dataset(file_paths: List[str]) -> InMemoryDocumentStore:
 
 def read_json_sets(file_paths: List[str]) -> List[dict]:
     res = []
-    for file_path in file_paths:
+    for file_path in tqdm(file_paths, desc=f"Reading {file_paths}"):
         with open(file_path, "r", encoding='utf-8') as f:
             data = json.load(f)
             if not isinstance(data, list):
@@ -114,7 +115,7 @@ def evaluate_pipeline(eval_sets, pipeline: Pipeline,
     Precisions, Recalls, F2s = [], [], []
     coverages = []
     iter = 0
-    for question in eval_sets:
+    for question in tqdm(eval_sets, desc="Reading questions in training sets"):
         if not (question["text"] and question["relevant_articles"]):
             continue
         if not isinstance(question["relevant_articles"], list):
@@ -202,7 +203,7 @@ def predict_public_test(public_test_set, pipeline: Pipeline, retrival_method: st
     iter = 0
     results = []
 
-    for question in public_test_set:
+    for question in tqdm(public_test_set, desc="Reading public test questions"):
         if not (question["question_id"] and question["text"]):
             continue        
 

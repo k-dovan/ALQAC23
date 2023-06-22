@@ -32,3 +32,10 @@ python task1.py --corpus="ALQAC2023" --retrieval_method='TfidfRetriever' --retri
 ### TdidfRetriever with ranker
 - python task1.py --corpus="ALQAC2023" --retrieval_method='TfidfRetriever' --retriever_top_k=[20,30] --ranker_top_k=1 --with_ranker --print_coverage --ranker_model='cross-encoder/mmarco-mMiniLMv2-L12-H384-v1'
 - Gained: % coverage.
+
+## Prepare finetuning data pairs
+### with Bm25TRetriever
+- python prepare_finetuning_data.py --retrieval_method='BM25Retriever' --retriever_top_k=200
+
+### with TdidfRetriever
+- python prepare_finetuning_data.py --retrieval_method='TfidfRetriever' --retriever_top_k=200
