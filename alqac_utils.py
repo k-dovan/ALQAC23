@@ -95,7 +95,7 @@ class ArticleIDs():
 
 def evaluate_pipeline(eval_sets, pipeline: Pipeline, 
                       retrival_method: str, 
-                      own_ranker: None,
+                      own_ranker = None,
                       retriever_top_k: int = 100, 
                       ranker_top_k: int = 1,
                       evaluation_type: str = 'f2' # `f2`, `coverage`, `public_test`
@@ -156,10 +156,10 @@ def evaluate_pipeline(eval_sets, pipeline: Pipeline,
         is_own_ranker = False
         if own_ranker:
             retrieved_docs_df = []
-            retrieved_doc_columns = ["qid", "query", "law_id", "article_id", "text"]
+            retrieved_doc_columns = ["qid", "query", "docno", "law_id", "article_id", "text"]
             is_own_ranker = True
 
-        for doc in retrieved_docs:
+        for i, doc in enumerate(retrieved_docs):
             if not doc.meta:
                 continue
             if not (doc.meta["law_id"] and doc.meta["article_id"]):
@@ -167,8 +167,8 @@ def evaluate_pipeline(eval_sets, pipeline: Pipeline,
             retrieved_articles.add(ArticleIDs(doc.meta["law_id"], doc.meta["article_id"]))
             
             if is_own_ranker:
-                retrieved_docs_df.append([question["question_id"], question["text"], doc.meta["law_id"], doc.meta["article_id"], doc.content])
-        
+                retrieved_docs_df.append([question["question_id"], question["text"], i, doc.meta["law_id"], doc.meta["article_id"], doc.content])
+
         if is_own_ranker:
             new_retrieved_articles = []
             # add query-relevant_doc pairs to dataframe for T5 to rank

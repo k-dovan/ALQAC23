@@ -15,7 +15,7 @@ from haystack.schema import Document
 
 import pandas as pd
 import pyterrier as pt
-from pyterrier_t5 import MonoT5ReRanker
+from pyterrier_t5 import MonoT5ReRanker, DuoT5ReRanker
 from alqac_utils import *
 
 logger = init_logger('task1_T5', logging.INFO)
@@ -96,7 +96,8 @@ def parse_arguments():
 if __name__ == "__main__":
     
     pt.init()
-    monoT5 = MonoT5ReRanker()
+    monoT5 = MonoT5ReRanker(model="castorini/monot5-large-msmarco-10k")
+    # monoT5 = DuoT5ReRanker()
 
     # parse arguments from commandline
     args = parse_arguments()
