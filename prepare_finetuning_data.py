@@ -17,7 +17,7 @@ from haystack.schema import Document
 from alqac_utils import *
 from task1 import *
 
-logger = init_logger('prepare_finetuning_data', logging.WARN)
+logger = init_logger('prepare_finetuning_data', logging.ERROR)
 
 def parse_arguments():
     parser = argparse.ArgumentParser()
@@ -33,6 +33,9 @@ if __name__ == "__main__":
 
     retrieval_method = args.retrieval_method
     retriever_top_k = args.retriever_top_k
+
+    # read corpus_dict as reference
+    corpus_data = json.load(open(f"{DATASET_DIR}/generated_finetuning_data/corpus_dict.json"))
 
     # 1. prepare corpora and train sets 
     # load all corpora
@@ -52,7 +55,7 @@ if __name__ == "__main__":
     query_text_pairs = []
     iter = 0
     for question in tqdm(train_sets, desc="Building query_doc pairs"):
-        if not (question["question_id"] and question["text"]):
+        if not ("text" in question.keys() and "relevant_articles" in question.keys()):
             continue   
         if not isinstance(question["relevant_articles"], list):
             continue
@@ -61,25 +64,21 @@ if __name__ == "__main__":
         
         # build set of [query-ground-truth relevant article] pairs
         for art in question["relevant_articles"]:
-            if not (art["law_id"] and art["article_id"]):
+            if not ("law_id" in art.keys() and "article_id" in art.keys()):
                 continue
-            filters = {
-                "$and": {
-                    "law_id": {"$eq": art["law_id"]},
-                    "article_id": {"$eq": art["article_id"]}
-                }
-            }
-            docs = document_store.get_all_documents(filters=filters)
-            if not len(docs):
+            
+            # get article text from corpus
+            key = f'{art["law_id"]}_{art["article_id"]}'
+            if key not in corpus_data.keys():
                 continue
 
             positive_pair = {}
             positive_pair["question"] = question["text"]
-            positive_pair["document"] = docs[0].content
+            positive_pair["document"] = corpus_data[key]
             positive_pair["relevant"] = 1
             query_text_pairs.append(positive_pair)
 
-            logger.warn(f'iter={iter}, question={positive_pair["question"]}, text={positive_pair["document"]}, relevant={positive_pair["relevant"]}')
+            logger.info(f'iter={iter}, question={positive_pair["question"]}, text={positive_pair["document"]}, relevant={positive_pair["relevant"]}')
 
         prediction = pipeline.run(
                 query=question["text"],
@@ -102,7 +101,7 @@ if __name__ == "__main__":
             negative_pair["relevant"] = 0
             query_text_pairs.append(negative_pair)
 
-            logger.warn(f'iter={iter}, question={negative_pair["question"]}, text={negative_pair["document"]}, relevant={negative_pair["relevant"]}')
+            logger.info(f'iter={iter}, question={negative_pair["question"]}, text={negative_pair["document"]}, relevant={negative_pair["relevant"]}')
     
     save_path = f"{DATASET_DIR}/generated_finetuning_data"
     os.makedirs(save_path, exist_ok=True)

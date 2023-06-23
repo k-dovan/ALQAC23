@@ -32,12 +32,12 @@ def read_corpus(file_path: str) -> List[dict]:
         if not isinstance(data, list):
             return res
         for law in tqdm(data):
-            if not (law["id"] and law["articles"]):
+            if not ("id" in law.keys() and "articles" in law.keys()):
                 continue
             if not isinstance(law["articles"], list):
                 continue
             for art in law["articles"]:
-                if not (art["id"] and art["text"]):
+                if not ("id" in art.keys() and "text" in art.keys()):
                     continue
                 item = {"content": art["text"], "meta": {
                     "law_id": law["id"], "article_id": art["id"]}}
@@ -116,7 +116,7 @@ def evaluate_pipeline(eval_sets, pipeline: Pipeline,
     coverages = []
     iter = 0
     for question in tqdm(eval_sets, desc="Reading questions in training sets"):
-        if not (question["text"] and question["relevant_articles"]):
+        if not ("text" in question.keys() and "relevant_articles" in question.keys()):
             continue
         if not isinstance(question["relevant_articles"], list):
             continue
@@ -126,7 +126,7 @@ def evaluate_pipeline(eval_sets, pipeline: Pipeline,
         # build set of ground-truth relevant articles
         relevant_articles = set()
         for art in question["relevant_articles"]:
-            if not (art["law_id"] and art["article_id"]):
+            if not ("law_id" in art.keys() and "article_id" in art.keys()):
                 continue
             relevant_articles.add(ArticleIDs(art["law_id"], art["article_id"]))        
         
@@ -151,10 +151,6 @@ def evaluate_pipeline(eval_sets, pipeline: Pipeline,
         # build set of retrieved relevant articles
         retrieved_articles = set()
         for doc in retrieved_docs:
-            if not doc.meta:
-                continue
-            if not (doc.meta["law_id"] and doc.meta["article_id"]):
-                continue
             retrieved_articles.add(ArticleIDs(doc.meta["law_id"], doc.meta["article_id"]))
         
         logger.debug(f'retrieved articles: {[str(art) for art in retrieved_articles]}')
@@ -204,7 +200,7 @@ def predict_public_test(public_test_set, pipeline: Pipeline, retrival_method: st
     results = []
 
     for question in tqdm(public_test_set, desc="Reading public test questions"):
-        if not (question["question_id"] and question["text"]):
+        if not ("text" in question.keys()):
             continue        
 
         if "Ranker" in pipeline._get_all_component_names():
@@ -225,12 +221,7 @@ def predict_public_test(public_test_set, pipeline: Pipeline, retrival_method: st
         iter +=1
         # build set of retrieved relevant articles
         retrieved_articles = []
-        for doc in retrieved_docs:
-            if not doc.meta:
-                continue
-            if not (doc.meta["law_id"] and doc.meta["article_id"]):
-                continue
-            
+        for doc in retrieved_docs:            
             retrieved_articles.append({"law_id": doc.meta["law_id"], "article_id": doc.meta["article_id"]})
         
         logger.debug(f'retrieved articles: {[str(art) for art in retrieved_articles]}')
