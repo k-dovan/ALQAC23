@@ -35,7 +35,6 @@ RETRIEVAL_CHOICES = ['TfidfRetriever', 'BM25Retriever']
 
 RANKER_MODELS = [
     'cross-encoder/mmarco-mMiniLMv2-L12-H384-v1',       # 85% coverage
-    'sentence-transformers/multi-qa-mpnet-base-dot-v1', 
     ]
     
 def build_retriever(document_store, retrieval_method):
