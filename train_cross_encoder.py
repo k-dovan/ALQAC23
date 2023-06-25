@@ -64,7 +64,7 @@ if __name__ == '__main__':
 
     datapairs_path = f"{DATASET_DIR}/generated_finetuning_data/query_doc_pairs_{ds_sampling_method}_top200.json"
     # path to save finetuned model
-    model_save_path = f'saved_models/{args.pretrained_model}-VN-LegalQA-{ds_sampling_method}'
+    model_save_path = f'saved_models/{args.pretrained_model}-VN-LegalQA-{ds_sampling_method}-{max_seq_length}-{num_epochs}'
 
     #We set num_labels=1 and set the activation function to Identiy, so that we get the raw logits
     model = CrossEncoder(model_name, num_labels=1, max_length=max_seq_length, default_activation_function=torch.nn.Identity())

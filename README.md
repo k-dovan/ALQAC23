@@ -33,9 +33,23 @@ python task1.py --corpus="ALQAC2023" --retrieval_method='TfidfRetriever' --retri
 - python task1.py --corpus="ALQAC2023" --retrieval_method='TfidfRetriever' --retriever_top_k=[20,30] --ranker_top_k=1 --with_ranker --print_coverage --ranker_model='cross-encoder/mmarco-mMiniLMv2-L12-H384-v1'
 - Gained: % coverage.
 
-## Prepare finetuning data pairs
-### with Bm25TRetriever
+# Prepare finetuning data pairs
+## with Bm25TRetriever
 - python prepare_finetuning_data.py --retrieval_method='BM25Retriever' --retriever_top_k=200
 
-### with TdidfRetriever
+## with TdidfRetriever
 - python prepare_finetuning_data.py --retrieval_method='TfidfRetriever' --retriever_top_k=200
+
+# Result with finetuned ranker (epochs=5, bm25_top200)
+## Bm25TRetriever with finetuned Ranker
+### on ALQAC2023 corpus
+python task1.py --corpus="ALQAC2023" --retrieval_method='BM25Retriever' --retriever_top_k=50 --ranker_top_k=1 --with_ranker --print_coverage --ranker_model='saved_models/mmarco-mMiniLMv2-L12-H384-v1-VN-LegalQA-bm25'
+- Gained: 92% coverage.
+
+### on ALQAC2022 corpus
+python task1.py --corpus="ALQAC2022" --retrieval_method='BM25Retriever' --retriever_top_k=50 --ranker_top_k=1 --with_ranker --print_coverage --ranker_model='saved_models/mmarco-mMiniLMv2-L12-H384-v1-VN-LegalQA-bm25'
+- Gained: 92.69% coverage.
+
+### on Zalo corpus
+python task1.py --corpus="Zalo" --retrieval_method='BM25Retriever' --retriever_top_k=50 --ranker_top_k=1 --with_ranker --print_coverage --ranker_model='saved_models/mmarco-mMiniLMv2-L12-H384-v1-VN-LegalQA-bm25'
+- Gained: 66.37% coverage.
