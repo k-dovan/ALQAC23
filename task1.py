@@ -35,7 +35,8 @@ RETRIEVAL_CHOICES = ['TfidfRetriever', 'BM25Retriever']
 
 RANKER_MODELS = [
     'cross-encoder/mmarco-mMiniLMv2-L12-H384-v1',       # 85% coverage
-    'saved_models/mmarco-mMiniLMv2-L12-H384-v1-VN-LegalQA-bm25'
+    'saved_models/mmarco-mMiniLMv2-L12-H384-v1-VN-LegalQA-bm25',    
+    'saved_models/mmarco-mMiniLMv2-L12-H384-v1-VN-LegalQA-bm25-512-10'
     ]
     
 def build_retriever(document_store, retrieval_method):
@@ -81,7 +82,8 @@ def parse_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('-c', '--corpus', type=str, help='Chosen corpus to work on.', choices=CORPUS_CHOICES, default=CORPUS_CHOICES[0])
     parser.add_argument('-m', '--retrieval_method', type=str, help='Retrieval method to use.', choices=RETRIEVAL_CHOICES, default=RETRIEVAL_CHOICES[0])
-    parser.add_argument('-e', '--retriever_top_k', type=int, help='Number of retrieved documents to extract by Retriever.', default=50)
+    parser.add_argument('-e', '--retriever_top_k_range', type=str, help='Range of number of retrieved documents to extract by Retriever.', default="15:100:5")
+    parser.add_argument('-b', '--best_configs_top_k', type=int, help='Number of pipeline configuration to save.', default=5)
     parser.add_argument('-n', '--ranker_model', type=str, help='Model name or path for the Ranker', choices=RANKER_MODELS, default=RANKER_MODELS[0])
     parser.add_argument('-a', '--ranker_top_k', type=int, help='Number of retrieved documents to extract by Ranker.', default=3)
     parser.add_argument('-w', '--with_ranker', help='Use Ranker along with Retriever.', action='store_true')    
@@ -98,7 +100,8 @@ if __name__ == "__main__":
 
     corpus = args.corpus
     retrieval_method = args.retrieval_method
-    retriever_top_k = args.retriever_top_k
+    retriever_top_k_range = args.retriever_top_k_range
+    best_configs_top_k = args.best_configs_top_k
     ranker_model = args.ranker_model
     ranker_top_k = args.ranker_top_k
     with_ranker = args.with_ranker
@@ -125,41 +128,62 @@ if __name__ == "__main__":
                                     retrival_method=retrieval_method,
                                     ranker_model_name=ranker_model_name
                                     )
+    
+    # parse range of retriever_top_k values
+    range_args = retriever_top_k_range.split(':')
+    range_args = [int(arg) for arg in range_args]
+    logger.info(f"range_args: {range_args}")
+    coverages_with_configs = []
+    for retriever_top_k in range(range_args[0],range_args[1], range_args[2]):
+        logger.info(f"**** Retriever_top_k value: {retriever_top_k} ****")
+        if print_coverage:
+            # evaluate pipeline with own_defined `coverage` metric
+            coverage = evaluate_pipeline(eval_sets=eval_sets, 
+                                        pipeline=pipeline, 
+                                        retrival_method=retrieval_method,
+                                        retriever_top_k=retriever_top_k,
+                                        ranker_top_k=ranker_top_k,
+                                        evaluation_type='coverage'
+                                )
 
+            logger.info(f"Retriever: {retrieval_method}")
+            logger.info(f"Top {retriever_top_k} retrieved articles cover {100* coverage:.2f}% ground-truth relevant articles.")
+            result = {"coverage": coverage, "retrieval_method": retrieval_method, "retriever_top_k": retriever_top_k, "ranker_model_name": ranker_model_name, "ranker_top_k": ranker_top_k}
+            coverages_with_configs.append(result)
+        
+        elif print_metric:
+            # evaluate pipeline with provided F2-metric
+            Precision, Recall, F2 = evaluate_pipeline(eval_sets=eval_sets, 
+                                                        pipeline=pipeline, 
+                                                        retrival_method=retrieval_method,
+                                                        retriever_top_k=retriever_top_k,
+                                                        ranker_top_k=ranker_top_k,
+                                                        evaluation_type='f2'
+                                                        )
+
+            logger.info(f"Precision: {Precision}, Recall: {Recall}, F2: {F2}")
+        
+        elif print_public_test:
+            # read public test from json
+            public_test_set = read_json_sets([f'{DATASET_DIR}/public_test.json'])
+
+            # write the pridiction result to file for submission
+            predict_public_test(public_test_set=public_test_set, 
+                                pipeline=pipeline, 
+                                retrival_method=retrieval_method,
+                                retriever_top_k=retriever_top_k,
+                                ranker_top_k=ranker_top_k
+                            ) 
     if print_coverage:
-        # evaluate pipeline with own_defined `coverage` metric
-        coverage = evaluate_pipeline(eval_sets=eval_sets, 
-                                    pipeline=pipeline, 
-                                    retrival_method=retrieval_method,
-                                    retriever_top_k=retriever_top_k,
-                                    ranker_top_k=ranker_top_k,
-                                    evaluation_type='coverage'
-                            )
+        # extract best_configs_top_k configs
+        top_best_configs = []
+        
+        if len(coverages_with_configs) > best_configs_top_k:
+            top_best_configs = sorted(coverages_with_configs, key = lambda x: x['coverage'], reverse=True)[:best_configs_top_k]
+        else:
+            top_best_configs = sorted(coverages_with_configs, key = lambda x: x['coverage'], reverse=True)
 
-        logger.info(f"Retriever: {retrieval_method}")
-        logger.info(f"Top {retriever_top_k} retrieved articles cover {100* coverage:.2f}% ground-truth relevant articles.")
-    
-    elif print_metric:
-        # evaluate pipeline with provided F2-metric
-        Precision, Recall, F2 = evaluate_pipeline(eval_sets=eval_sets, 
-                                                    pipeline=pipeline, 
-                                                    retrival_method=retrieval_method,
-                                                    retriever_top_k=retriever_top_k,
-                                                    ranker_top_k=ranker_top_k,
-                                                    evaluation_type='f2'
-                                                    )
-
-        logger.info(f"Precision: {Precision}, Recall: {Recall}, F2: {F2}")
-    
-    elif print_public_test:
-        # read public test from json
-        public_test_set = read_json_sets([f'{DATASET_DIR}/public_test.json'])
-
-        # write the pridiction result to file for submission
-        predict_public_test(public_test_set=public_test_set, 
-                            pipeline=pipeline, 
-                            retrival_method=retrieval_method,
-                            retriever_top_k=retriever_top_k,
-                            ranker_top_k=ranker_top_k
-                        )      
+        with open("best_configs_for_coverage_metric.json", "w+", encoding="utf-8") as f:
+            json_object = json.dumps(top_best_configs, indent=4, ensure_ascii=False)
+            f.write(json_object)
        

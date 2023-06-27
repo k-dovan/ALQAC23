@@ -1,0 +1,37 @@
+[
+    {
+        "coverage": 0.91,
+        "retrieval_method": "BM25Retriever",
+        "retriever_top_k": 100,
+        "ranker_model_name": "saved_models/mmarco-mMiniLMv2-L12-H384-v1-VN-LegalQA-bm25",
+        "ranker_top_k": 1
+    },
+    {
+        "coverage": 0.91,
+        "retrieval_method": "BM25Retriever",
+        "retriever_top_k": 110,
+        "ranker_model_name": "saved_models/mmarco-mMiniLMv2-L12-H384-v1-VN-LegalQA-bm25",
+        "ranker_top_k": 1
+    },
+    {
+        "coverage": 0.91,
+        "retrieval_method": "BM25Retriever",
+        "retriever_top_k": 120,
+        "ranker_model_name": "saved_models/mmarco-mMiniLMv2-L12-H384-v1-VN-LegalQA-bm25",
+        "ranker_top_k": 1
+    },
+    {
+        "coverage": 0.91,
+        "retrieval_method": "BM25Retriever",
+        "retriever_top_k": 130,
+        "ranker_model_name": "saved_models/mmarco-mMiniLMv2-L12-H384-v1-VN-LegalQA-bm25",
+        "ranker_top_k": 1
+    },
+    {
+        "coverage": 0.91,
+        "retrieval_method": "BM25Retriever",
+        "retriever_top_k": 140,
+        "ranker_model_name": "saved_models/mmarco-mMiniLMv2-L12-H384-v1-VN-LegalQA-bm25",
+        "ranker_top_k": 1
+    }
+]
