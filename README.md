@@ -16,6 +16,8 @@ python task1.py --corpus="ALQAC2023" --retrieval_method='TfidfRetriever' --retri
 ##### Experiments(k=retriever_top_k, cov=coverage): 
 ##### [k=8-10,cov=97%; k=11,cov=98%; k=12-35,cov=99%; k=36-,cov=100%]
 
+
+
 ### With Ranker
 #### BM25 Retriever
 python task1.py --corpus="ALQAC2023" --retrieval_method='BM25Retriever' --retriever_top_k_range="20:100:5" --ranker_top_k=1 --with_ranker --print_coverage --ranker_model='cross-encoder/mmarco-mMiniLMv2-L12-H384-v1'

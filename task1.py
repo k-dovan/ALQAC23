@@ -183,7 +183,7 @@ if __name__ == "__main__":
         else:
             top_best_configs = sorted(coverages_with_configs, key = lambda x: x['coverage'], reverse=True)
 
-        with open("best_configs_for_coverage_metric.json", "w+", encoding="utf-8") as f:
+        with open(f"experiment_resources/best_configs_for_coverage_{retrieval_method}_[{range_args[0]}-{range_args[1]}-{range_args[2]}]_{ranker_top_k}.json", "w+", encoding="utf-8") as f:
             json_object = json.dumps(top_best_configs, indent=4, ensure_ascii=False)
             f.write(json_object)
        

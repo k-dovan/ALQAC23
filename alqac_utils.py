@@ -231,6 +231,6 @@ def predict_public_test(public_test_set, pipeline: Pipeline, retrival_method: st
             results.append(result)
             logger.warn(f"iter={iter},{result}")
     
-    with open("public_test_prediction.json", 'w', encoding='utf-8') as f:
+    with open(f"experiment_resources/public_test_prediction_{retrival_method}_{retriever_top_k}-{ranker_top_k}.json", 'w', encoding='utf-8') as f:
         json_object = json.dumps(results, indent=4, ensure_ascii=False)
         f.write(json_object)
