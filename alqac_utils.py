@@ -177,6 +177,8 @@ def evaluate_pipeline(eval_sets, pipeline: Pipeline,
             coverage_i = len(relevant_articles.intersection(retrieved_articles))/len(relevant_articles)
         
             logger.warn(f'iter: {iter}, coverage_i: {coverage_i}')
+            logger.warn(f'> relevant: {relevant_articles}')
+            logger.warn(f'> retrieved: {retrieved_articles}')
 
             coverages.append(coverage_i)
     
