@@ -114,6 +114,7 @@ def evaluate_pipeline(eval_sets, pipeline: Pipeline,
     """
     Precisions, Recalls, F2s = [], [], []
     coverages = []
+    acc_relevant_retrieved_docs = []
     iter = 0
     for question in tqdm(eval_sets, desc="Reading questions in training sets"):
         if not ("text" in question.keys() and "relevant_articles" in question.keys()):
@@ -177,8 +178,13 @@ def evaluate_pipeline(eval_sets, pipeline: Pipeline,
             coverage_i = len(relevant_articles.intersection(retrieved_articles))/len(relevant_articles)
         
             logger.warn(f'iter: {iter}, coverage_i: {coverage_i}')
-            logger.warn(f'> relevant: {relevant_articles}')
-            logger.warn(f'> retrieved: {retrieved_articles}')
+            if coverage_i == 0:
+                logger.warn(f'> relevant: {[str(art) for art in relevant_articles]}')
+                logger.warn(f'> retrieved: {[str(art) for art in retrieved_articles]}')
+                
+                # write result to investigate
+                relevant_retrieved_docs = {"relevant": [str(art) for art in relevant_articles], "retrieved": [str(art) for art in retrieved_articles]}
+                acc_relevant_retrieved_docs.append(relevant_retrieved_docs)
 
             coverages.append(coverage_i)
     
@@ -190,6 +196,10 @@ def evaluate_pipeline(eval_sets, pipeline: Pipeline,
         return Precision, Recall, F2
     
     elif evaluation_type == 'coverage':
+        with open(f"experiment_resources/relevant-retrieved-docs-{retrival_method}-{retriever_top_k}.json", "w+", encoding="utf-8") as f:
+            json_object = json.dumps(acc_relevant_retrieved_docs, indent=4, ensure_ascii=False)
+            f.write(json_object)
+
         coverage = sum(coverages)/len(coverages)
 
         return coverage
