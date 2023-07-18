@@ -17,7 +17,8 @@ from alqac_utils import *
 
 logger = init_logger('task1', logging.INFO)
 
-DATASET_DIR = "../ALQAC_2023_training_data"
+DATASET_DIR = "ALQAC_2023_training_data"
+SAVED_PATH = f'{DATASET_DIR}/cleaned_corpus/'
 
 CORPUS_CHOICES = ['ALQAC2023', 'ALQAC2022', 'Zalo']
 CORPORA = {
@@ -25,6 +26,12 @@ CORPORA = {
         CORPUS_CHOICES[1]: f'{DATASET_DIR}/additional_data/ALQAC_2022_training_data/law.json',
         CORPUS_CHOICES[2]: f'{DATASET_DIR}/additional_data/zalo/zalo_corpus.json'
 }
+RETRIEVER_CLEANED_CORPORA = {
+        CORPUS_CHOICES[0]: f'{SAVED_PATH}/law_2023_cleaned.json',
+        CORPUS_CHOICES[1]: f'{SAVED_PATH}/law_2022_cleaned.json',
+        CORPUS_CHOICES[2]: f'{SAVED_PATH}/law_zalo_cleaned.json'
+}
+
 EVAL_SETS = {
     CORPUS_CHOICES[0]: f'{DATASET_DIR}/train.json',
     CORPUS_CHOICES[1]: f'{DATASET_DIR}/additional_data/ALQAC_2022_training_data/question.json',
@@ -72,7 +79,9 @@ def build_retriever_pipe(retriever, retrival_method: str, ranker_model_name: str
                             name=retrival_method, inputs=["Query"])
     if ranker_model_name is not None:
         ranker = SentenceTransformersRanker(
-            model_name_or_path=ranker_model_name)
+            model_name_or_path=ranker_model_name,
+            scale_score=False       # use raw score
+            )
         retriever_pipe.add_node(
             component=ranker, name="Ranker", inputs=[retrival_method])
 
@@ -112,7 +121,11 @@ if __name__ == "__main__":
     # 1. prepare corpus and eval sets 
     # load corpus
     corpus_path = CORPORA[corpus]
-    document_store = prepare_in_memory_dataset(file_paths=[corpus_path])
+    cleaned_corpus_path = RETRIEVER_CLEANED_CORPORA[corpus]
+    # read from raw corpus
+    # document_store = prepare_in_memory_dataset(file_paths=[corpus_path])
+    # read from cleaned corpus with correct format for haystack
+    document_store = prepare_in_memory_dataset_with_cleaned_corpus(file_paths=[cleaned_corpus_path])
 
     # load eval sets
     eval_path = EVAL_SETS[corpus]

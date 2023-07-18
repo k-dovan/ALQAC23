@@ -1,5 +1,9 @@
 import logging
 import json
+import string
+import re
+from underthesea import word_tokenize
+import os
 from tqdm import tqdm
 from typing import List
 
@@ -21,6 +25,36 @@ def init_logger(logger_name: str, level: int):
 logger = init_logger('utils', logging.WARNING)
 
 # ============================= data utils ====================================
+# ========== clean corpus ==============
+# replace by regex some special cases
+regx_numbered_list = r"\n+\d{1,3}\."
+regx_letter_list = r"\n+[abcdđefghijklmnopqrstuvxyz]\)"
+
+number = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+chars = ["a", "b", "c", "d", "đ", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o"]
+stop_word = number + chars + ["của", "và", "các", "có", "được", "theo", "tại", "trong", "về", 
+            "hoặc", "người",  "này", "khoản", "cho", "không", "từ", "phải", 
+            "ngày", "việc", "sau",  "để",  "đến", "bộ",  "với", "là", "năm", 
+            "khi", "số", "trên", "khác", "đã", "thì", "thuộc", "điểm", "đồng",
+            "do", "một", "bị", "vào", "lại", "ở", "nếu", "làm", "đây", 
+            "như", "đó", "mà", "nơi", "”", "“"]
+
+def remove_stopword(w):
+    return w not in stop_word
+def remove_punctuation(w):
+    return w not in string.punctuation
+def lower_case(w):
+    return w.lower()
+
+def bm25_tokenizer(text):
+    text = re.sub(regx_numbered_list, " ", text)
+    text = re.sub(regx_letter_list, " ", text)
+    tokens = word_tokenize(text)
+    tokens = list(map(lower_case, tokens))
+    tokens = list(filter(remove_punctuation, tokens))
+    # tokens = list(filter(remove_stopword, tokens))
+    return tokens
+
 # read law data from a json file to dict (with required format)
 # {"content": "...", "meta": {"law_id": "05/2022/QH15", "article_id": "95"}}
 
@@ -49,15 +83,38 @@ def read_corpus(file_path: str) -> List[dict]:
 def prepare_in_memory_dataset(file_paths: List[str]) -> InMemoryDocumentStore:
     document_store = InMemoryDocumentStore(
         use_bm25=True,
-        similarity='dot_product',
+        similarity='cosin',
         embedding_dim=768,
         use_gpu=True,
-        progress_bar=True
+        progress_bar=True,
+        bm25_algorithm = 'BM25Plus'
     )
     # load data from json files
     data = []
     for file_path in file_paths:
         data.extend(read_corpus(file_path))
+
+    # skip duplicate documents if exist
+    document_store.write_documents(
+        data, batch_size=1000, duplicate_documents="skip")
+
+    return document_store
+
+def prepare_in_memory_dataset_with_cleaned_corpus(file_paths: List[str]) -> InMemoryDocumentStore:
+    document_store = InMemoryDocumentStore(
+        use_bm25=True,
+        similarity='dot_product',
+        embedding_dim=768,
+        use_gpu=True,
+        progress_bar=True,
+        bm25_algorithm = 'BM25Plus',
+        bm25_parameters={'k1':0.4, 'b':0.6, 'delta':1}
+    )
+    # load data from json files
+    data = []
+    for file_path in file_paths:
+        with open(file_path, "r", encoding='utf-8') as f:
+            data.extend(json.load(f))
 
     # skip duplicate documents if exist
     document_store.write_documents(
@@ -133,14 +190,16 @@ def evaluate_pipeline(eval_sets, pipeline: Pipeline,
         
         logger.debug(f'relevant articles: {[str(art) for art in relevant_articles]}')
 
+        cleaned_question =  ' '.join(bm25_tokenizer(question["text"]))
+
         if "Ranker" in pipeline._get_all_component_names():
             prediction = pipeline.run(
-                query=question["text"],
+                query=cleaned_question,
                 params={retrival_method: {"top_k": retriever_top_k}, "Ranker": {"top_k": ranker_top_k}}
             )
         else:
             prediction = pipeline.run(
-                query=question["text"],
+                query=cleaned_question,
                 params={retrival_method: {"top_k": retriever_top_k}}
             )
 
@@ -183,8 +242,12 @@ def evaluate_pipeline(eval_sets, pipeline: Pipeline,
                 logger.warn(f'> retrieved: {[str(art) for art in retrieved_articles]}')
                 
                 # write result to investigate
-                relevant_retrieved_docs = {"relevant": [str(art) for art in relevant_articles], "retrieved": [str(art) for art in retrieved_articles]}
+                relevant_retrieved_docs = {"question": question["text"], "relevant": [str(art) for art in relevant_articles], "retrieved": [str(art) for art in retrieved_articles]}
                 acc_relevant_retrieved_docs.append(relevant_retrieved_docs)
+
+                # for testing zalo corpus, break if acc_relevant_retrieved_docs > 200
+                if len(acc_relevant_retrieved_docs) == 10:
+                    break
 
             coverages.append(coverage_i)
     
@@ -214,15 +277,17 @@ def predict_public_test(public_test_set, pipeline: Pipeline, retrival_method: st
     for question in tqdm(public_test_set, desc="Reading public test questions"):
         if not ("text" in question.keys()):
             continue        
+        
+        cleaned_question =  ' '.join(bm25_tokenizer(question["text"]))
 
         if "Ranker" in pipeline._get_all_component_names():
             prediction = pipeline.run(
-                query=question["text"],
+                query=cleaned_question,
                 params={retrival_method: {"top_k": retriever_top_k}, "Ranker": {"top_k": ranker_top_k}}
             )
         else:
             prediction = pipeline.run(
-                query=question["text"],
+                query=cleaned_question,
                 params={retrival_method: {"top_k": retriever_top_k}}
             )
 

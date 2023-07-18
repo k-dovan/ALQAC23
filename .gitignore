@@ -14,3 +14,6 @@
 # python virtual env
 venv/
 __pycache__/
+
+# ignore datasets
+ALQAC_2023_training_data/
