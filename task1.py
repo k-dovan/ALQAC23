@@ -38,7 +38,7 @@ EVAL_SETS = {
     CORPUS_CHOICES[2]: f'{DATASET_DIR}/additional_data/zalo/zalo_question.json'
 }
 
-RETRIEVAL_CHOICES = ['TfidfRetriever', 'BM25Retriever']
+RETRIEVAL_CHOICES = ['BM25Retriever', 'TfidfRetriever']
 
 RANKER_MODELS = [
     'cross-encoder/mmarco-mMiniLMv2-L12-H384-v1',       # 85% coverage

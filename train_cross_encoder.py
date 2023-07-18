@@ -39,41 +39,38 @@ logging.basicConfig(format='%(asctime)s - %(message)s',
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--pretrained_model", default="mmarco-mMiniLMv2-L12-H384-v1", type=str, help="name of pretrained cross-encoder model")
+    parser.add_argument("--pretrained_model", default="cross-encoder/mmarco-mMiniLMv2-L12-H384-v1", type=str, help="name of pretrained cross-encoder model")
     parser.add_argument("--max_seq_length", default=512, type=int, help="maximum sequence length")
-    parser.add_argument("--data_type", type=str, default="bm25", help="finetuning data with `data_type` sampling method", choices=["bm25", "tfidf"])
-    parser.add_argument("--validation_ratio_target", type=float, default=0.2, help="target percentage of validation samples in total")
+    parser.add_argument("--pair_data", type=str, help="path to data-pairs file for finetuning")
+    parser.add_argument("--validation_ratio_target", type=float, default=0.1, help="target percentage of validation samples in total")
     parser.add_argument("--evaluation_steps", default=5000, type=int, help="evaluate model after `evaluation_steps` of training steps")
     parser.add_argument("--epochs", default=5, type=int, help="Number of training epochs")
     parser.add_argument("--batch_size", type=int, default=32, help="batch size")
     parser.add_argument("--lr", type=float, default=7e-6, help="learning rate for training")
+    parser.add_argument("--save_path", type=str, help="path to save finetuned model")
     args = parser.parse_args()
 
     logging.info(f"Input args: {args}")
 
     #First, we define the transformer model we want to fine-tune
-    # model_name = 'microsoft/MiniLM-L12-H384-uncased'  # original base model
-    model_name = f'cross-encoder/{args.pretrained_model}'
+    pretrained_model = args.pretrained_model
     max_seq_length = args.max_seq_length
-    ds_sampling_method = args.data_type     # the method that being used to sample the finetuning dataset
+    pair_data = args.pair_data
     validation_ratio_target = args.validation_ratio_target
     evaluation_steps = args.evaluation_steps
     num_epochs = args.epochs
     train_batch_size = args.batch_size
     learning_rate = args.lr
-
-    datapairs_path = f"{DATASET_DIR}/generated_finetuning_data/query_doc_pairs_{ds_sampling_method}_top200.json"
-    # path to save finetuned model
-    model_save_path = f'saved_models/{args.pretrained_model}-VN-LegalQA-{ds_sampling_method}-{max_seq_length}-{num_epochs}'
+    save_path = args.save_path
 
     #We set num_labels=1 and set the activation function to Identiy, so that we get the raw logits
-    model = CrossEncoder(model_name, num_labels=1, max_length=max_seq_length, default_activation_function=torch.nn.Identity())
+    model = CrossEncoder(pretrained_model, num_labels=1, max_length=max_seq_length, default_activation_function=torch.nn.Identity())
 
     ### Now we create our dev data
     train_samples = []    
     dev_samples = {}
 
-    save_pairs = json.load(open(datapairs_path))
+    save_pairs = json.load(open(pair_data))
     logging.info(f"There are {len(save_pairs)} query-doc pairs.")
  
     for pair in save_pairs:
@@ -114,9 +111,9 @@ if __name__ == '__main__':
             epochs=num_epochs,
             evaluation_steps=evaluation_steps,
             warmup_steps=warmup_steps,
-            output_path=model_save_path,
+            output_path=save_path,
             optimizer_params={'lr': learning_rate},
             use_amp=True)
 
     #Save latest model
-    model.save(model_save_path+'-latest')
+    model.save(save_path+'-latest')

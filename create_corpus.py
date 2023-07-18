@@ -21,7 +21,7 @@ if __name__ == '__main__':
             if concat_id not in save_dict:
                 save_dict[concat_id] = article_text
     
-    save_path = f"{DATASET_DIR}/generated_finetuning_data"
+    save_path = f"{DATASET_DIR}/generated_data"
     os.makedirs(save_path, exist_ok=True)
 
     with open(os.path.join(save_path, "corpus_dict.json"), 'w', encoding='utf-8') as f:

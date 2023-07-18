@@ -1,0 +1,58 @@
+  0%|          | 0/17 [00:00<?, ?it/s]100%|██████████| 17/17 [00:00<00:00, 9780.96it/s]
+  0%|          | 0/4 [00:00<?, ?it/s]100%|██████████| 4/4 [00:00<00:00, 2921.84it/s]
+  0%|          | 0/3271 [00:00<?, ?it/s]100%|██████████| 3271/3271 [00:00<00:00, 51552.32it/s]
+Updating BM25 representation...:   0%|          | 0/63402 [00:00<?, ? docs/s]Updating BM25 representation...:   3%|▎         | 1748/63402 [00:00<00:03, 17474.35 docs/s]Updating BM25 representation...:   6%|▌         | 3496/63402 [00:00<00:03, 16458.09 docs/s]Updating BM25 representation...:   8%|▊         | 5146/63402 [00:00<00:04, 13246.68 docs/s]Updating BM25 representation...:  10%|█         | 6528/63402 [00:00<00:04, 12649.95 docs/s]Updating BM25 representation...:  12%|█▏        | 7825/63402 [00:00<00:04, 11703.32 docs/s]Updating BM25 representation...:  14%|█▍        | 9059/63402 [00:00<00:04, 11886.04 docs/s]Updating BM25 representation...:  16%|█▌        | 10266/63402 [00:00<00:04, 11295.12 docs/s]Updating BM25 representation...:  18%|█▊        | 11409/63402 [00:00<00:04, 10867.10 docs/s]Updating BM25 representation...:  20%|█▉        | 12504/63402 [00:01<00:04, 10514.08 docs/s]Updating BM25 representation...:  21%|██▏       | 13560/63402 [00:01<00:05, 8949.91 docs/s] Updating BM25 representation...:  23%|██▎       | 14669/63402 [00:01<00:05, 9489.49 docs/s]Updating BM25 representation...:  25%|██▍       | 15654/63402 [00:01<00:05, 9161.36 docs/s]Updating BM25 representation...:  26%|██▋       | 16673/63402 [00:01<00:04, 9434.26 docs/s]Updating BM25 representation...:  28%|██▊       | 17637/63402 [00:01<00:05, 9011.57 docs/s]Updating BM25 representation...:  29%|██▉       | 18554/63402 [00:01<00:05, 8840.43 docs/s]Updating BM25 representation...:  31%|███       | 19449/63402 [00:01<00:05, 8631.61 docs/s]Updating BM25 representation...:  32%|███▏      | 20319/63402 [00:02<00:05, 8090.66 docs/s]Updating BM25 representation...:  33%|███▎      | 21137/63402 [00:02<00:05, 8057.43 docs/s]Updating BM25 representation...:  35%|███▍      | 21949/63402 [00:02<00:05, 7207.86 docs/s]Updating BM25 representation...:  36%|███▌      | 22925/63402 [00:02<00:05, 7872.45 docs/s]Updating BM25 representation...:  38%|███▊      | 23874/63402 [00:02<00:04, 8309.36 docs/s]Updating BM25 representation...:  39%|███▉      | 24725/63402 [00:02<00:04, 8093.84 docs/s]Updating BM25 representation...:  40%|████      | 25629/63402 [00:02<00:04, 8353.32 docs/s]Updating BM25 representation...:  42%|████▏     | 26477/63402 [00:02<00:04, 8153.47 docs/s]Updating BM25 representation...:  43%|████▎     | 27375/63402 [00:02<00:04, 8386.33 docs/s]Updating BM25 representation...:  45%|████▍     | 28247/63402 [00:02<00:04, 8482.06 docs/s]Updating BM25 representation...:  46%|████▌     | 29184/63402 [00:03<00:03, 8737.51 docs/s]Updating BM25 representation...:  47%|████▋     | 30107/63402 [00:03<00:04, 8130.06 docs/s]Updating BM25 representation...:  49%|████▉     | 30933/63402 [00:03<00:04, 7872.79 docs/s]Updating BM25 representation...:  50%|█████     | 31891/63402 [00:03<00:03, 8344.61 docs/s]Updating BM25 representation...:  52%|█████▏    | 32823/63402 [00:03<00:03, 8618.10 docs/s]Updating BM25 representation...:  53%|█████▎    | 33853/63402 [00:03<00:03, 9096.06 docs/s]Updating BM25 representation...:  55%|█████▌    | 34987/63402 [00:03<00:02, 9745.90 docs/s]Updating BM25 representation...:  57%|█████▋    | 36116/63402 [00:03<00:02, 10199.27 docs/s]Updating BM25 representation...:  59%|█████▊    | 37143/63402 [00:03<00:02, 9595.43 docs/s] Updating BM25 representation...:  60%|██████    | 38127/63402 [00:04<00:02, 9664.61 docs/s]Updating BM25 representation...:  62%|██████▏   | 39102/63402 [00:04<00:02, 8599.53 docs/s]Updating BM25 representation...:  63%|██████▎   | 39988/63402 [00:04<00:06, 3699.38 docs/s]Updating BM25 representation...:  64%|██████▍   | 40818/63402 [00:04<00:05, 4344.37 docs/s]Updating BM25 representation...:  66%|██████▌   | 41715/63402 [00:04<00:04, 5115.57 docs/s]Updating BM25 representation...:  67%|██████▋   | 42508/63402 [00:05<00:03, 5656.96 docs/s]Updating BM25 representation...:  69%|██████▊   | 43576/63402 [00:05<00:02, 6739.39 docs/s]Updating BM25 representation...:  71%|███████   | 44741/63402 [00:05<00:02, 7885.87 docs/s]Updating BM25 representation...:  72%|███████▏  | 45693/63402 [00:05<00:02, 8144.91 docs/s]Updating BM25 representation...:  74%|███████▍  | 46807/63402 [00:05<00:01, 8925.27 docs/s]Updating BM25 representation...:  75%|███████▌  | 47794/63402 [00:05<00:01, 8005.62 docs/s]Updating BM25 representation...:  77%|███████▋  | 48853/63402 [00:05<00:01, 8657.09 docs/s]Updating BM25 representation...:  79%|███████▉  | 50000/63402 [00:05<00:01, 9402.00 docs/s]Updating BM25 representation...:  80%|████████  | 50999/63402 [00:05<00:01, 9474.31 docs/s]Updating BM25 representation...:  82%|████████▏ | 51988/63402 [00:06<00:01, 9580.65 docs/s]Updating BM25 representation...:  84%|████████▎ | 52976/63402 [00:06<00:01, 9616.12 docs/s]Updating BM25 representation...:  85%|████████▌ | 53959/63402 [00:06<00:00, 9637.08 docs/s]Updating BM25 representation...:  87%|████████▋ | 54938/63402 [00:06<00:00, 9513.67 docs/s]Updating BM25 representation...:  88%|████████▊ | 55900/63402 [00:06<00:00, 9264.79 docs/s]Updating BM25 representation...:  90%|████████▉ | 56835/63402 [00:06<00:00, 8515.33 docs/s]Updating BM25 representation...:  91%|█████████ | 57832/63402 [00:06<00:00, 8910.56 docs/s]Updating BM25 representation...:  93%|█████████▎| 58738/63402 [00:06<00:00, 8790.67 docs/s]Updating BM25 representation...:  94%|█████████▍| 59733/63402 [00:06<00:00, 9117.74 docs/s]Updating BM25 representation...:  96%|█████████▋| 61094/63402 [00:07<00:00, 10408.05 docs/s]Updating BM25 representation...:  98%|█████████▊| 62168/63402 [00:07<00:00, 10503.02 docs/s]Updating BM25 representation...: 100%|█████████▉| 63227/63402 [00:07<00:00, 9388.54 docs/s] Updating BM25 representation...: 100%|██████████| 63402/63402 [00:07<00:00, 8715.27 docs/s]
+Reading ['ALQAC_2023_training_data/train.json', 'ALQAC_2023_training_data/additional_data/ALQAC_2022_training_data/question.json', 'ALQAC_2023_training_data/additional_data/zalo/zalo_question.json']:   0%|          | 0/3 [00:00<?, ?it/s]Reading ['ALQAC_2023_training_data/train.json', 'ALQAC_2023_training_data/additional_data/ALQAC_2022_training_data/question.json', 'ALQAC_2023_training_data/additional_data/zalo/zalo_question.json']: 100%|██████████| 3/3 [00:00<00:00, 272.19it/s]
+/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/torch/_utils.py:776: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Building query_doc pairs:   0%|          | 0/3816 [00:00<?, ?it/s]Building query_doc pairs:   0%|          | 0/3816 [00:03<?, ?it/s]
+Traceback (most recent call last):
+  File "/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/haystack/pipelines/base.py", line 555, in run
+    node_output, stream_id = self._run_node(node_id, node_input)
+  File "/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/haystack/pipelines/base.py", line 468, in _run_node
+    return self.graph.nodes[node_id]["component"]._dispatch_run(**node_input)
+  File "/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/haystack/nodes/base.py", line 201, in _dispatch_run
+    return self._dispatch_run_general(self.run, **kwargs)
+  File "/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/haystack/nodes/base.py", line 245, in _dispatch_run_general
+    output, stream = run_method(**run_inputs, **run_params)
+  File "/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/haystack/nodes/ranker/base.py", line 39, in run
+    results = predict(query=query, documents=documents, top_k=top_k)
+  File "/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/haystack/nodes/ranker/base.py", line 76, in wrapper
+    ret = fn(*args, **kwargs)
+  File "/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/haystack/nodes/ranker/sentence_transformers.py", line 133, in predict
+    similarity_scores = self.transformer_model(**features).logits
+  File "/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/transformers/models/xlm_roberta/modeling_xlm_roberta.py", line 1226, in forward
+    outputs = self.roberta(
+  File "/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/transformers/models/xlm_roberta/modeling_xlm_roberta.py", line 854, in forward
+    encoder_outputs = self.encoder(
+  File "/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/transformers/models/xlm_roberta/modeling_xlm_roberta.py", line 528, in forward
+    layer_outputs = layer_module(
+  File "/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/transformers/models/xlm_roberta/modeling_xlm_roberta.py", line 412, in forward
+    self_attention_outputs = self.attention(
+  File "/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/transformers/models/xlm_roberta/modeling_xlm_roberta.py", line 339, in forward
+    self_outputs = self.self(
+  File "/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/transformers/models/xlm_roberta/modeling_xlm_roberta.py", line 275, in forward
+    context_layer = torch.matmul(attention_probs, value_layer)
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 376.00 MiB (GPU 0; 39.59 GiB total capacity; 14.01 GiB already allocated; 251.19 MiB free; 14.03 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "dig_semantic_pairs.py", line 93, in <module>
+    prediction = pipeline.run(
+  File "/root/data/khanhdv/ALQAC23/venv/lib/python3.8/site-packages/haystack/pipelines/base.py", line 562, in run
+    raise Exception(
+Exception: Exception while running node 'Ranker': CUDA out of memory. Tried to allocate 376.00 MiB (GPU 0; 39.59 GiB total capacity; 14.01 GiB already allocated; 251.19 MiB free; 14.03 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+Enable debug logging to see the data that was passed when the pipeline failed.

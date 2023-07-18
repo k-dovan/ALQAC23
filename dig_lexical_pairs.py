@@ -17,12 +17,12 @@ from haystack.schema import Document
 from alqac_utils import *
 from task1 import *
 
-logger = init_logger('prepare_finetuning_data', logging.ERROR)
+logger = init_logger('dig_lexical_pairs', logging.ERROR)
 
 def parse_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-m', '--retrieval_method', type=str, help='Retrieval method to use.', choices=RETRIEVAL_CHOICES, default=RETRIEVAL_CHOICES[0])
-    parser.add_argument('-e', '--retriever_top_k', type=int, help='Number of retrieved documents to extract by Retriever.', default=50)
+    parser.add_argument('-m', '--retrieval_method', type=str, choices=RETRIEVAL_CHOICES, default=RETRIEVAL_CHOICES[0], help='Retrieval method to use.')
+    parser.add_argument('-e', '--retriever_top_k', type=int, default=50, help='Number of retrieved documents to extract by Retriever.')
 
     return parser.parse_args()
 
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     retriever_top_k = args.retriever_top_k
 
     # read corpus_dict as reference
-    corpus_data = json.load(open(f"{DATASET_DIR}/generated_finetuning_data/corpus_dict.json"))
+    corpus_data = json.load(open(f"{DATASET_DIR}/generated_data/corpus_dict.json"))
 
     # 1. prepare corpora and train sets 
     # load all corpora
@@ -110,7 +110,7 @@ if __name__ == "__main__":
 
             logger.info(f'iter={iter}, question={negative_pair["question"]}, text={negative_pair["document"]}, relevant={negative_pair["relevant"]}')
     
-    save_path = f"{DATASET_DIR}/generated_finetuning_data"
+    save_path = f"{DATASET_DIR}/generated_data"
     os.makedirs(save_path, exist_ok=True)
     method = ""
     if retrieval_method == "BM25Retriever":

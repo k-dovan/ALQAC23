@@ -17,7 +17,7 @@ from haystack.schema import Document
 from alqac_utils import *
 from task1 import *
 
-logger = init_logger('prepare_finetuning_data', logging.ERROR)
+logger = init_logger('dig_semantic_pairs', logging.ERROR)
 
 def parse_arguments():
     parser = argparse.ArgumentParser()
@@ -34,8 +34,10 @@ if __name__ == "__main__":
     ranker_model = args.ranker_model
     ranker_top_k = args.ranker_top_k
 
+    ranker_model_name = os.path.basename(ranker_model)
+
     # read corpus_dict as reference
-    corpus_data = json.load(open(f"{DATASET_DIR}/generated_finetuning_data/corpus_dict.json"))
+    corpus_data = json.load(open(f"{DATASET_DIR}/generated_data/corpus_dict.json"))
 
     # 1. prepare corpora and train sets 
     # load all corpora
@@ -46,12 +48,16 @@ if __name__ == "__main__":
     
     # build ranker pipeline    
     pipeline = retriever_pipe = Pipeline()
+    retriever = BM25Retriever(document_store=document_store)
+    pipeline.add_node(component=retriever,
+                            name="BM25Retriever", inputs=["Query"])
     ranker = SentenceTransformersRanker(
-            model_name_or_path=args.ranker_model,
-            scale_score=False       # use raw score
+            model_name_or_path=ranker_model,
+            scale_score=False,       # use raw score
+            use_gpu=True
             )
     pipeline.add_node(
-            component=ranker, name="Ranker", inputs=["Query"])
+            component=ranker, name="Ranker", inputs=["BM25Retriever"])
 
     # build finetuning dataset for cross-encoder model (used as ranker in our pipeline)
     query_text_pairs = []
@@ -86,7 +92,7 @@ if __name__ == "__main__":
 
         prediction = pipeline.run(
                 query=question["text"],
-                params={"Ranker": {"top_k": args.ranker_top_k}}
+                params={"BM25Retriever": {"top_k": 500}, "Ranker": {"top_k": args.ranker_top_k}}
         )            
 
         retrieved_docs = prediction["documents"]
@@ -112,9 +118,9 @@ if __name__ == "__main__":
 
             logger.info(f'iter={iter}, question={negative_pair["question"]}, text={negative_pair["document"]}, relevant={negative_pair["relevant"]}')
     
-    save_path = f"{DATASET_DIR}/generated_finetuning_data"
+    save_path = f"{DATASET_DIR}/generated_data"
     os.makedirs(save_path, exist_ok=True)
     
-    with open(os.path.join(save_path, f"qrel_pairs_{ranker_model}_top{ranker_top_k}.json"), 'w', encoding='utf-8') as f:
+    with open(os.path.join(save_path, f"qrel_pairs_{ranker_model_name}_top{ranker_top_k}.json"), 'w', encoding='utf-8') as f:
         json_object = json.dumps(query_text_pairs, indent=4, ensure_ascii=False)
         f.write(json_object) 
