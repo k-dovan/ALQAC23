@@ -1,0 +1,9 @@
+[
+    {
+        "coverage": 0.8648648648648649,
+        "retrieval_method": "BM25Retriever",
+        "retriever_top_k": 500,
+        "ranker_model_name": null,
+        "ranker_top_k": 3
+    }
+]

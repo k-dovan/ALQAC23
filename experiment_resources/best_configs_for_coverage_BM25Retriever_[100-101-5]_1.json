@@ -1,0 +1,9 @@
+[
+    {
+        "coverage": 0.9,
+        "retrieval_method": "BM25Retriever",
+        "retriever_top_k": 100,
+        "ranker_model_name": "saved_models/mmarco-mMiniLMv2-L12-H384-v1-VN-LegalQA-bm25-512-10",
+        "ranker_top_k": 1
+    }
+]

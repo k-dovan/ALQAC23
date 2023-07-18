@@ -1,0 +1,71 @@
+[
+    {
+        "question": "Theo Luật Du Lịch, các loại dịch vụ du lịch khác bao gồm điều nào dưới đây? Chọn câu trả lời đúng nhất.",
+        "relevant": [
+            "{law_id: Luật Du lịch, article_id: 54}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Du lịch, article_id: 26}",
+            "{law_id: Luật Du lịch, article_id: 9}",
+            "{law_id: Luật Du lịch, article_id: 29}",
+            "{law_id: Luật Du lịch, article_id: 62}",
+            "{law_id: Luật Du lịch, article_id: 24}",
+            "{law_id: Luật Du lịch, article_id: 56}",
+            "{law_id: Luật Du lịch, article_id: 60}",
+            "{law_id: Luật Du lịch, article_id: 53}",
+            "{law_id: Luật Du lịch, article_id: 10}",
+            "{law_id: Luật Du lịch, article_id: 46}",
+            "{law_id: Luật Du lịch, article_id: 15}",
+            "{law_id: Luật Du lịch, article_id: 58}",
+            "{law_id: Luật Du lịch, article_id: 28}",
+            "{law_id: Luật Du lịch, article_id: 65}",
+            "{law_id: Luật Du lịch, article_id: 3}"
+        ]
+    },
+    {
+        "question": "Trọng tài có thẩm quyền giải quyết tranh chấp trong những trường hợp nào?",
+        "relevant": [
+            "{law_id: Luật Trọng tài thương mại, article_id: 2}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Trọng tài thương mại, article_id: 56}",
+            "{law_id: Luật Trọng tài thương mại, article_id: 42}",
+            "{law_id: Luật Trọng tài thương mại, article_id: 28}",
+            "{law_id: Luật Trọng tài thương mại, article_id: 59}",
+            "{law_id: Luật Trọng tài thương mại, article_id: 55}",
+            "{law_id: Luật Trọng tài thương mại, article_id: 11}",
+            "{law_id: Luật Trọng tài thương mại, article_id: 71}",
+            "{law_id: Luật Trọng tài thương mại, article_id: 36}",
+            "{law_id: Luật Trọng tài thương mại, article_id: 5}",
+            "{law_id: Luật Trọng tài thương mại, article_id: 43}",
+            "{law_id: Luật Trọng tài thương mại, article_id: 21}",
+            "{law_id: Luật Trọng tài thương mại, article_id: 49}",
+            "{law_id: Luật Trọng tài thương mại, article_id: 38}",
+            "{law_id: Luật Trọng tài thương mại, article_id: 44}",
+            "{law_id: Luật Trọng tài thương mại, article_id: 4}"
+        ]
+    },
+    {
+        "question": "Hành vi nào sau đây bị cấm?",
+        "relevant": [
+            "{law_id: Luật Hôn nhân và gia đình, article_id: 5}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Tố tụng hành chính, article_id: 340}",
+            "{law_id: Bộ luật dân sự, article_id: 117}",
+            "{law_id: Luật Hôn nhân và gia đình, article_id: 8}",
+            "{law_id: Luật Chăn nuôi, article_id: 19}",
+            "{law_id: Luật An ninh mạng, article_id: 9}",
+            "{law_id: Luật Tố tụng hành chính, article_id: 13}",
+            "{law_id: Luật Điện ảnh, article_id: 9}",
+            "{law_id: Luật Tố tụng hành chính, article_id: 328}",
+            "{law_id: Luật Tố tụng hành chính, article_id: 68}",
+            "{law_id: Luật Trọng tài thương mại, article_id: 49}",
+            "{law_id: Bộ luật dân sự, article_id: 123}",
+            "{law_id: Luật Tiếp cận thông tin, article_id: 15}",
+            "{law_id: Luật Tố tụng hành chính, article_id: 320}",
+            "{law_id: Luật Giáo dục, article_id: 22}",
+            "{law_id: Luật Tố tụng hành chính, article_id: 71}"
+        ]
+    }
+]

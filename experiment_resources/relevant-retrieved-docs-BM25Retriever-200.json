@@ -1,0 +1,92 @@
+[
+    {
+        "question": "Việc sinh con bằng kỹ thuật hỗ trợ sinh sản là hành vi trong đó con người sử dụng phương pháp nhân tạo thụ tinh hoặc thụ tinh trong ống nghiệm để sinh con.",
+        "relevant": [
+            "{law_id: Luật Hôn nhân và gia đình, article_id: 3}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Hôn nhân và gia đình, article_id: 88}"
+        ]
+    },
+    {
+        "question": "Bộ Giáo dục và Đào tạo chịu trách nhiệm về quy định việc dạy và học bằng tiếng nước ngoài trong cơ sở giáo dục.\n",
+        "relevant": [
+            "{law_id: Luật Giáo dục, article_id: 11}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Giáo dục, article_id: 38}"
+        ]
+    },
+    {
+        "question": "Chồng có nguồn thu nhập nhiều hơn vợ thì chồng có quyền chiếm hữu, sử dụng tài sản chung nhiều hơn so với vợ, đúng hay sai?",
+        "relevant": [
+            "{law_id: Luật Hôn nhân và gia đình, article_id: 29}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Hôn nhân và gia đình, article_id: 36}"
+        ]
+    },
+    {
+        "question": "Trách nhiệm của người sử dụng ma túy là phải chấp hành việc quản lý của cơ quan nhà nước, cụ thể là Ủy ban nhân dân cấp xã, phường, đúng hay sai?",
+        "relevant": [
+            "{law_id: Luật Phòng, chống ma túy, article_id: 24}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Phòng, chống ma túy, article_id: 25}"
+        ]
+    },
+    {
+        "question": "Giải quyết tranh chấp bằng Trọng Tài luôn phải được tiến hành công khai, kể cả khi các bên có thỏa thuận khác, đúng hay sai?",
+        "relevant": [
+            "{law_id: Luật Trọng tài thương mại, article_id: 4}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Trọng tài thương mại, article_id: 55}"
+        ]
+    },
+    {
+        "question": "Theo Luật điện ảnh, đối với Phim được phân loại là C thì người xem là trẻ em dưới 13 tuổi bắt buộc phải có cha mẹ hoặc người giám hộ đi cùng là đúng hay sai?",
+        "relevant": [
+            "{law_id: Luật Điện ảnh, article_id: 32}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Điện ảnh, article_id: 21}"
+        ]
+    },
+    {
+        "question": "Hồ sơ đăng ký thường trú của công dân có chỗ ở hợp pháp thuộc quyền sở hữu của mình bao gồm những gì?",
+        "relevant": [
+            "{law_id: Luật Cư trú, article_id: 21}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Cư trú, article_id: 16}"
+        ]
+    },
+    {
+        "question": "Điều nào dưới đây nằm trong luật áp dụng giải quyết tranh chấp được quy định trong Luật Trọng tài thương mại?",
+        "relevant": [
+            "{law_id: Luật Trọng tài thương mại, article_id: 14}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Trọng tài thương mại, article_id: 31}"
+        ]
+    },
+    {
+        "question": "Hành vi nào sau đây bị cấm?",
+        "relevant": [
+            "{law_id: Luật Hôn nhân và gia đình, article_id: 5}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Tiếp cận thông tin, article_id: 11}"
+        ]
+    },
+    {
+        "question": "Hồ sơ đề nghị cấp lại thẻ hướng dẫn viên du lịch bao gồm ảnh chân dung màu cỡ bao nhiêu?",
+        "relevant": [
+            "{law_id: Luật Du lịch, article_id: 63}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Du lịch, article_id: 60}"
+        ]
+    }
+]

@@ -1,0 +1,902 @@
+[
+    {
+        "question_id": "DS-51",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Cư trú",
+                "article_id": "2"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-52",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Viên chức",
+                "article_id": "27"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-53",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "3"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-54",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Hôn nhân và gia đình",
+                "article_id": "21"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-55",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "19"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-56",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Phòng, chống ma túy",
+                "article_id": "10"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-57",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Hôn nhân và gia đình",
+                "article_id": "51"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-58",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Điện ảnh",
+                "article_id": "35"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-59",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Viên chức",
+                "article_id": "14"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-60",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Phòng, chống ma túy",
+                "article_id": "17"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-61",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "13"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-62",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Du lịch",
+                "article_id": "37"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-63",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Giáo dục",
+                "article_id": "41"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-64",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Điện ảnh",
+                "article_id": "36"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-65",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "33"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-66",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Hôn nhân và gia đình",
+                "article_id": "22"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-67",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Hôn nhân và gia đình",
+                "article_id": "23"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-68",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Hôn nhân và gia đình",
+                "article_id": "3"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-69",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "3"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-70",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Hôn nhân và gia đình",
+                "article_id": "2"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-71",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Cư trú",
+                "article_id": "32"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-72",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Du lịch",
+                "article_id": "46"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-73",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Du lịch",
+                "article_id": "39"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-74",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Viên chức",
+                "article_id": "11"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-75",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "3"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-76",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "3"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-77",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "11"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-78",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Điện ảnh",
+                "article_id": "9"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-79",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Tố tụng hành chính",
+                "article_id": "45"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-80",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Du lịch",
+                "article_id": "37"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-81",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Cư trú",
+                "article_id": "33"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-82",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Điện ảnh",
+                "article_id": "2"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-83",
+        "relevant_articles": [
+            {
+                "law_id": "Bộ luật dân sự",
+                "article_id": "596"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-84",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Phòng, chống ma túy",
+                "article_id": "26"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-85",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Cư trú",
+                "article_id": "38"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-86",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Điện ảnh",
+                "article_id": "38"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-87",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Du lịch",
+                "article_id": "77"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-88",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Phòng, chống ma túy",
+                "article_id": "31"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-89",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Cư trú",
+                "article_id": "11"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-90",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Cư trú",
+                "article_id": "38"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-91",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Du lịch",
+                "article_id": "49"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-92",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Giáo dục",
+                "article_id": "20"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-93",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Viên chức",
+                "article_id": "23"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-94",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Hôn nhân và gia đình",
+                "article_id": "3"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-95",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Điện ảnh",
+                "article_id": "32"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-96",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "16"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-97",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Viên chức",
+                "article_id": "8"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-98",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "31"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-99",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Điện ảnh",
+                "article_id": "41"
+            }
+        ]
+    },
+    {
+        "question_id": "DS-100",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Giáo dục",
+                "article_id": "3"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-41",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Phòng, chống ma túy",
+                "article_id": "11"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-42",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Cư trú",
+                "article_id": "29"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-43",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "6"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-44",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Hôn nhân và gia đình",
+                "article_id": "124"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-45",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Du lịch",
+                "article_id": "62"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-46",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Điện ảnh",
+                "article_id": "32"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-47",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Viên chức",
+                "article_id": "37"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-48",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "15"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-49",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Cư trú",
+                "article_id": "28"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-50",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Giáo dục",
+                "article_id": "38"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-51",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Phòng, chống ma túy",
+                "article_id": "35"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-52",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Du lịch",
+                "article_id": "53"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-53",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Cư trú",
+                "article_id": "25"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-54",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Hôn nhân và gia đình",
+                "article_id": "8"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-55",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Hôn nhân và gia đình",
+                "article_id": "105"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-56",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "11"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-57",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Cư trú",
+                "article_id": "2"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-58",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Du lịch",
+                "article_id": "65"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-59",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "4"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-60",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "20"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-61",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Cư trú",
+                "article_id": "27"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-62",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Viên chức",
+                "article_id": "53"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-63",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Cư trú",
+                "article_id": "30"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-64",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Hôn nhân và gia đình",
+                "article_id": "81"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-65",
+        "relevant_articles": [
+            {
+                "law_id": "Bộ luật dân sự",
+                "article_id": "43"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-66",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "16"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-67",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Viên chức",
+                "article_id": "46"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-68",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Hôn nhân và gia đình",
+                "article_id": "59"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-69",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Viên chức",
+                "article_id": "33"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-70",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Viên chức",
+                "article_id": "41"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-71",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "41"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-72",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Hôn nhân và gia đình",
+                "article_id": "5"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-73",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Viên chức",
+                "article_id": "56"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-74",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Cư trú",
+                "article_id": "25"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-75",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Phòng, chống ma túy",
+                "article_id": "9"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-76",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Du lịch",
+                "article_id": "55"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-77",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "4"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-78",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Hôn nhân và gia đình",
+                "article_id": "51"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-79",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Du lịch",
+                "article_id": "49"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-80",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Hôn nhân và gia đình",
+                "article_id": "75"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-81",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Du lịch",
+                "article_id": "9"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-82",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Tiếp cận thông tin",
+                "article_id": "26"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-83",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "21"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-84",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "15"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-85",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Tiếp cận thông tin",
+                "article_id": "11"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-86",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Viên chức",
+                "article_id": "54"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-87",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Du lịch",
+                "article_id": "61"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-88",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Hôn nhân và gia đình",
+                "article_id": "8"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-89",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Phòng, chống ma túy",
+                "article_id": "2"
+            }
+        ]
+    },
+    {
+        "question_id": "TN-90",
+        "relevant_articles": [
+            {
+                "law_id": "Luật Trọng tài thương mại",
+                "article_id": "15"
+            }
+        ]
+    }
+]

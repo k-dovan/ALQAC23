@@ -1,0 +1,92 @@
+[
+    {
+        "question": "Việc sinh con bằng kỹ thuật hỗ trợ sinh sản là hành vi trong đó con người sử dụng phương pháp nhân tạo thụ tinh hoặc thụ tinh trong ống nghiệm để sinh con.",
+        "relevant": [
+            "{law_id: Luật Hôn nhân và gia đình, article_id: 3}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Hôn nhân và gia đình, article_id: 88}"
+        ]
+    },
+    {
+        "question": "Bộ Giáo dục và Đào tạo chịu trách nhiệm về quy định việc dạy và học bằng tiếng nước ngoài trong cơ sở giáo dục.\n",
+        "relevant": [
+            "{law_id: Luật Giáo dục, article_id: 11}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Giáo dục, article_id: 70}"
+        ]
+    },
+    {
+        "question": "Chồng có nguồn thu nhập nhiều hơn vợ thì chồng có quyền chiếm hữu, sử dụng tài sản chung nhiều hơn so với vợ, đúng hay sai?",
+        "relevant": [
+            "{law_id: Luật Hôn nhân và gia đình, article_id: 29}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Hôn nhân và gia đình, article_id: 35}"
+        ]
+    },
+    {
+        "question": "Bộ Giáo dục và Đào tạo chịu trách nhiệm về việc quy định việc liên thông giữa các cấp học, trình độ đào tạo trong hệ thống giáo dục quốc dân.",
+        "relevant": [
+            "{law_id: Luật Giáo dục, article_id: 10}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Giáo dục, article_id: 38}"
+        ]
+    },
+    {
+        "question": "Hợp tác quốc tế, nghiên cứu khoa học, chuyển giao công nghệ, cung cấp dịch vụ kỹ thuật số để phát triển điện ảnh là một trong các chính sách của nhà nước về phát triển điện ảnh, công nghiệp điện ảnh là đúng hay sai?",
+        "relevant": [
+            "{law_id: Luật Điện ảnh, article_id: 5}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Thanh niên, article_id: 15}"
+        ]
+    },
+    {
+        "question": "Trường hợp công dân không trong độ tuổi nhập ngũ, nếu đi du học, xuất khẩu lao động không cần phải khai báo tạm vắng, đúng hay sai?",
+        "relevant": [
+            "{law_id: Luật Cư trú, article_id: 31}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Chăn nuôi, article_id: 63}"
+        ]
+    },
+    {
+        "question": "Ly hôn là việc lợi dụng ly hôn để trốn tránh nghĩa vụ tài sản, vi phạm chính sách, pháp luật về dân số hoặc để đạt được mục đích khác mà không nhằm mục đích chấm dứt hôn nhân, đúng hay sai?",
+        "relevant": [
+            "{law_id: Luật Hôn nhân và gia đình, article_id: 3}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Hôn nhân và gia đình, article_id: 55}"
+        ]
+    },
+    {
+        "question": "Trường hợp nào sau đây ngôn ngữ được sử dụng trong tố tụng không phải là tiếng Việt?",
+        "relevant": [
+            "{law_id: Luật Trọng tài thương mại, article_id: 10}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Tố tụng hành chính, article_id: 21}"
+        ]
+    },
+    {
+        "question": "Vợ chồng có quyền như nào trong việc chiếm hữu, sử dụng và định đoạt tài sản chung",
+        "relevant": [
+            "{law_id: Luật Hôn nhân và gia đình, article_id: 35}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Hôn nhân và gia đình, article_id: 44}"
+        ]
+    },
+    {
+        "question": "Trong trường hợp các bên không có thỏa thuận khác hoặc quy tắc tố tụng của trung tâm trọng tài không có quy định khác, Trung tâm trọng tài phải gửi cho bị đơn bản sao đơn khởi kiện của nguyên đơn và những tài liệu theo quy định trong thời hạn bao lâu kể từ ngày nhận được đơn khởi kiện?",
+        "relevant": [
+            "{law_id: Luật Trọng tài thương mại, article_id: 32}"
+        ],
+        "retrieved": [
+            "{law_id: Luật Trọng tài thương mại, article_id: 40}"
+        ]
+    }
+]
