@@ -17,3 +17,4 @@ __pycache__/
 
 # ignore datasets
 ALQAC_2023_training_data/
+saved_models/
